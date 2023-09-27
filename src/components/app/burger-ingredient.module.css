@@ -28,4 +28,13 @@
 .article {
     margin-bottom: 40px;
     width: 100%;
- }
+}
+.tabWrapper {
+    margin-bottom: 40px;
+    display: flex;
+}
+
+.ingredientsWrapper {
+    max-height: 80vh;
+    overflow-y: scroll;
+}
