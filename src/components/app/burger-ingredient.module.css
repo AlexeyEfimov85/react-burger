@@ -19,6 +19,7 @@
     padding-bottom: 24px;
     box-sizing: border-box;
     position: relative;
+    cursor: pointer;
 }
 
 .listItem p {

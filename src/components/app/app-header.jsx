@@ -3,7 +3,7 @@ import { Logo, BurgerIcon, ListIcon, ProfileIcon } from '@ya.praktikum/react-dev
 
 function NavListItem(props) {
     return (
-        <a style={{ justifySelf: 'end' }}><li className={styles.listItem}>{props.icon}{props.text}</li></a>
+        <a className={styles.listItemLink}><li className={styles.listItem}>{props.icon}{props.text}</li></a>
     )
 }
 
@@ -33,7 +33,7 @@ export default function Header() {
         <header className={styles.header}>
             <div className={styles.headerWrapper} >
                 <Nav />
-                <div style={{ justifySelf: 'center' }}>
+                <div className={ styles.logoContainer }>
                     <Logo />
                 </div>
                 <NavListItem icon={<ProfileIcon type="secondary" />} text={<p className="text text_type_main-default text_color_inactive">
