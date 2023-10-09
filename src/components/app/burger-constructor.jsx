@@ -2,7 +2,7 @@ import React from 'react';
 import styles from './burger-constructor.module.css';
 import { ConstructorElement, Button, CurrencyIcon, DragIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import PropTypes from 'prop-types';
-import { OrderDetails } from './modal';
+import { OrderDetails } from './order-details';
 import { createPortal } from 'react-dom';
 import Modal from './modal';
 function TotalOrder(props) {
@@ -15,7 +15,7 @@ function TotalOrder(props) {
 }
 
 TotalOrder.propTypes = {
-    data: PropTypes.array
+    price: PropTypes.number
 }
 
 function MainElement(props) {
@@ -32,29 +32,32 @@ MainElement.propTypes = {
 }
 
 export default function BurgerConstructor({ data }) {
-    const modalRoot = document.getElementById("modals");
     const [total, setTotal] = React.useState(false);
-    const escFunction = (e) => {
-        if (e.key === "Escape") {
-            setTotal(false)
-        }
-      };
-      React.useEffect(() => {
-        document.addEventListener("keydown", escFunction);
-        return () => {
-          document.removeEventListener("keydown", escFunction);
-        };
-      }, [])
     //временная функция для открытия модалки
     const OpenModal = (e) => {
         setTotal(true)
     }
     const closeModal = () => {
         setTotal(false)
-      }
+    }
+    React.useEffect(() => {
+        document.addEventListener("keydown", (e) => {
+            if (e.key === "Escape") {
+              closeModal()
+            }
+          });
+        return () => {
+            document.removeEventListener("keydown", (e) => {
+                if (e.key === "Escape") {
+                  closeModal()
+                }
+              });
+        };
+    }, [])
+
     return (
 
-        <section  className={`${styles.burgerConstructor} mt-15`}>
+        <section className={`${styles.burgerConstructor} mt-15`}>
 
             <div className={styles.burgerConstructorAllElemenstWrapper}>
                 <div className='ml-15'>
@@ -66,7 +69,7 @@ export default function BurgerConstructor({ data }) {
                         thumbnail={data[0].image}
                     />
                 </div>
-                <div  className={`${styles.burgerConstructorMainElementWrapper} custom-scroll pr-1`}>
+                <div className={`${styles.burgerConstructorMainElementWrapper} custom-scroll pr-1`}>
                     <MainElement text={"Соус традиционный галактический"} price={15} thumbnail={data[6].image} />
                     <MainElement text={"Мясо бессмертных моллюсков Protostomia"} price={1337} thumbnail={data[5].image} />
                     <MainElement text={"Плоды Фалленианского дерева"} price={874} thumbnail={data[7].image} />
@@ -83,23 +86,18 @@ export default function BurgerConstructor({ data }) {
                     /></div>
             </div>
             <div className={`${styles.totalWrapper} mt-10 mb-15`}>
-                <TotalOrder  price={610} ></TotalOrder>
+                <TotalOrder price={610} ></TotalOrder>
                 <Button onClick={OpenModal} htmlType="button" type="primary" size="large">
                     Оформить заказ
                 </Button>
             </div>
-            {createPortal(
-        <>
-          {total && <Modal  onClick={closeModal}>
-            <OrderDetails />
-          </Modal>}
-        </>,
-        modalRoot
-      )}
+            {total && <Modal onClick={closeModal}>
+                <OrderDetails />
+            </Modal>}
         </section>
     )
 }
 
 BurgerConstructor.propTypes = {
     data: PropTypes.array
-  }
+}

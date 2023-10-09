@@ -16,11 +16,14 @@ function App() {
       setState({ ...state, isLoading: true });
       fetch('https://norma.nomoreparties.space/api/ingredients')
         .then((res) => {
-          return res.json();
+          if (res.ok) {
+            return res.json();
+          } return Promise.reject(`Ошибка ${res.status}`);
         })
         .then((object) => {
           setState({ data: object.data, isLoading: false })
         })
+        .catch((err) => console.log(err))
     }
     getIngredients();
   }, [])
@@ -30,9 +33,10 @@ function App() {
         <Header />
         <main className={styles.main}>
           {!state.isLoading && state.data.length &&
-            <BurgerIngredients data={state.data} />}
-          {!state.isLoading && state.data.length &&
-            <BurgerConstructor data={state.data} />}
+            <>
+              <BurgerIngredients data={state.data} />
+              <BurgerConstructor data={state.data} />
+            </>}
         </main>
       </div>
     </>

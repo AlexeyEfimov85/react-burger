@@ -3,8 +3,8 @@ import { Tab, CurrencyIcon, Counter } from '@ya.praktikum/react-developer-burger
 import PropTypes from 'prop-types';
 import React from 'react';
 import Modal from './modal';
-import { IngredientDetails } from './modal';
-import { createPortal } from 'react-dom';
+import { IngredientDetails } from './ingridient-details';
+
 
 
 function SectionHeading() {
@@ -42,7 +42,8 @@ function Article(props) {
 }
 
 Article.propTypes = {
-  data: PropTypes.array
+  text: PropTypes.string,
+  children: PropTypes.any
 }
 
 function ItemList(props) {
@@ -70,20 +71,23 @@ ItemList.propTypes = {
   type: PropTypes.string
 }
 export default function BurgerIngredients({ data }) {
-  const modalRoot = document.getElementById("modals");
+  
   const [currentIngredient, setcurrentIngredient] = React.useState(null);
   const closeModal = () => {
     setcurrentIngredient(null)
   }
-  const escFunction = (e) => {
-    if (e.key === "Escape") {
-      setcurrentIngredient(null)
-    }
-  };
   React.useEffect(() => {
-    document.addEventListener("keydown", escFunction);
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape") {
+        closeModal()
+      }
+    });
     return () => {
-      document.removeEventListener("keydown", escFunction);
+      document.removeEventListener("keydown", (e) => {
+        if (e.key === "Escape") {
+          closeModal()
+        }
+      });
     };
   }, [])
   return (
@@ -101,14 +105,11 @@ export default function BurgerIngredients({ data }) {
           <ItemList data={data} type='main' onClick={setcurrentIngredient} />
         </Article>
       </div>
-      {createPortal(
-        <>
+      
           {currentIngredient && <Modal  onClick={closeModal}>
             <IngredientDetails name={currentIngredient.name} src={currentIngredient.image} calories={currentIngredient.calories} proteins={currentIngredient.proteins} fat={currentIngredient.fat} carbohydrates={currentIngredient.carbohydrates} />
           </Modal>}
-        </>,
-        modalRoot
-      )}
+
     </section>
 
   )
