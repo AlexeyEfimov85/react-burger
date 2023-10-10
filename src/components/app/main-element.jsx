@@ -7,10 +7,9 @@ import {
 export default function MainElement(props) {
   const arr = props.data.filter((element) => element.type === "main");
   const listItems = arr.map((listItem) => (
-    <div className={styles.burgerConstructorMainElement}>
+    <div className={styles.burgerConstructorMainElement} key={listItem._id}>
       <DragIcon type="primary" />
       <ConstructorElement
-        key={listItem._id}
         text={listItem.name}
         price={listItem.price}
         thumbnail={listItem.image}
