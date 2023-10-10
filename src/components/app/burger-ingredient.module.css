@@ -1,39 +1,6 @@
 .sectionBurgerIngredients {
     width: 600px;
 }
-.list {
-    display: flex;
-    justify-content: space-between;
-    padding: 0;
-    margin: 24px 0;
-    flex-wrap: wrap;
-}
-
-.listItem {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: space-between;
-    width: 272px;
-    height: 208px;
-    padding-bottom: 24px;
-    box-sizing: border-box;
-    position: relative;
-    cursor: pointer;
-}
-
-.listItem p {
-    text-align: center;
-}
-
-.article {
-    margin-bottom: 40px;
-    width: 100%;
-}
-.tabWrapper {
-    margin-bottom: 40px;
-    display: flex;
-}
 
 .ingredientsWrapper {
     max-height: 80vh;
