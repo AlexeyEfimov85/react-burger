@@ -14,7 +14,7 @@ export default function BurgerIngredients({ data }) {
   };
   return (
     <section className={styles.sectionBurgerIngredients}>
-      <h1 className="text text_type_main-large">Соберите бургер </h1>;
+      <h1 className="text text_type_main-large">Соберите бургер </h1>
       <Tabs />
       <div className={`${styles.ingredientsWrapper} custom-scroll`}>
         <Article text={"Булки"}>
@@ -31,12 +31,7 @@ export default function BurgerIngredients({ data }) {
       {currentIngredient && (
         <Modal onClick={closeModal}>
           <IngredientDetails
-            name={currentIngredient.name}
-            src={currentIngredient.image}
-            calories={currentIngredient.calories}
-            proteins={currentIngredient.proteins}
-            fat={currentIngredient.fat}
-            carbohydrates={currentIngredient.carbohydrates}
+            ingredient={currentIngredient}
           />
         </Modal>
       )}

@@ -8,7 +8,7 @@ import PropTypes from "prop-types";
 import { OrderDetails } from "./order-details";
 import Modal from "./modal";
 import TotalOrder from "./total-order";
-import MainElement from "./main-element";
+import MainElements from "./main-elements";
 
 
 
@@ -37,7 +37,7 @@ export default function BurgerConstructor({ data }) {
         <div
           className={`${styles.burgerConstructorMainElementWrapper} custom-scroll pr-1`}
         >
-          <MainElement data = {data}
+          <MainElements data = {data}
             text={"Соус традиционный галактический"}
             price={15}
             thumbnail={data[6].image}
@@ -75,5 +75,5 @@ export default function BurgerConstructor({ data }) {
 }
 
 BurgerConstructor.propTypes = {
-  data: PropTypes.array,
+  data: PropTypes.array
 };
