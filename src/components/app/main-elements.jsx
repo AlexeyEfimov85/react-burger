@@ -5,7 +5,7 @@ import {
   DragIcon,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 export default function MainElements(props) {
-  const arr = props.data.filter((element) => element.type === "main");
+  const arr = props.data.filter((element) => element.type !== "bun");
   const listItems = arr.map((listItem) => (
     <div className={styles.burgerConstructorMainElement} key={listItem._id}>
       <DragIcon type="primary" />
