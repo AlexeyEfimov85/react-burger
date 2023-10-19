@@ -1,10 +1,11 @@
+import React from 'react';
 import PropTypes from "prop-types";
 import styles from "./main-elements.module.css";
 import {
   ConstructorElement,
   DragIcon,
 } from "@ya.praktikum/react-developer-burger-ui-components";
-export default function MainElements(props) {
+export default function MainElements(props) { 
   const arr = props.data.filter((element) => element.type !== "bun");
   const listItems = arr.map((listItem) => (
     <div className={styles.burgerConstructorMainElement} key={listItem._id}>
@@ -14,7 +15,7 @@ export default function MainElements(props) {
         price={listItem.price}
         thumbnail={listItem.image}
       />
-    </div>
+  </div>
   ));
   return <ul className={styles.list}>{listItems}</ul>;
 }

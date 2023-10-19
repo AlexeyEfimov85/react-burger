@@ -6,35 +6,24 @@ import { IngredientDetails } from "./ingridient-details";
 import Tabs from './tabs';
 import Article from "./article";
 import ItemList from "./item-list";
-
-export default function BurgerIngredients({ data }) {
-  const [currentIngredient, setcurrentIngredient] = React.useState(null);
-  const closeModal = () => {
-    setcurrentIngredient(null);
-  };
+export default function BurgerIngredients({ data, onClick, children }) {
+  
   return (
     <section className={styles.sectionBurgerIngredients}>
       <h1 className="text text_type_main-large">Соберите бургер </h1>
       <Tabs />
       <div className={`${styles.ingredientsWrapper} custom-scroll`}>
         <Article text={"Булки"}>
-          <ItemList data={data} type="bun" onClick={setcurrentIngredient} />
+          <ItemList data={data} type="bun" onClick={onClick} />
         </Article>
         <Article text={"Соусы"}>
-          <ItemList data={data} type="sauce" onClick={setcurrentIngredient} />
+          <ItemList data={data} type="sauce" onClick={onClick} />
         </Article>
         <Article text={"Начинки"}>
-          <ItemList data={data} type="main" onClick={setcurrentIngredient} />
+          <ItemList data={data} type="main" onClick={onClick} />
         </Article>
+      {children}
       </div>
-
-      {currentIngredient && (
-        <Modal onClick={closeModal}>
-          <IngredientDetails
-            ingredient={currentIngredient}
-          />
-        </Modal>
-      )}
     </section>
   );
 }

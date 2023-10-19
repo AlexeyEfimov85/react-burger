@@ -32,3 +32,12 @@
     justify-content: flex-end; 
     align-items: center;
 }
+
+.list {
+    display: flex;
+    justify-content: space-between;
+    padding: 0;
+    margin: 24px 0;
+    flex-wrap: wrap;
+    gap: 10px;
+}

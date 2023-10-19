@@ -1,6 +1,6 @@
 import PropTypes from "prop-types";
-import styles from "./total-order.module.css";
 import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
+
 export default function TotalOrder(props) {
   return (
     <div className="mr-10">
@@ -13,3 +13,4 @@ export default function TotalOrder(props) {
 TotalOrder.propTypes = {
   price: PropTypes.number,
 };
+

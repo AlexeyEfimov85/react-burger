@@ -1,11 +1,15 @@
+import React from 'react';
 import PropTypes from "prop-types";
 import styles from './item-list.module.css';
 import {
     CurrencyIcon,
     Counter,
   } from "@ya.praktikum/react-developer-burger-ui-components";
+import  {DataContext} from '../../services/appContext';
+
 export default function ItemList(props) {
-    const arr = props.data.filter((element) => element.type === props.type);
+  const data = React.useContext(DataContext);
+    const arr = data.state.data.filter((element) => element.type === props.type);
     const listItems = arr.map((listItem) => (
       <li
         onClick={() => props.onClick(listItem)}
