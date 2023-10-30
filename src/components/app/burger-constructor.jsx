@@ -13,6 +13,7 @@ import TotalOrder from "./total-order";
 //import  {DataContext} from '../../services/appContext';
 import { IngredientContext } from "../../services/burgerIngredientContext";
 import { TotalPriceContext } from "../../services/burgerСonstructorContext";
+import { baseUrl, checkResponse } from "../../utils/burger-api";
 const priceInitialState = { price: 0 };
 let totalPriceSum = 0;
 function reducer(state, action) {
@@ -92,7 +93,7 @@ export default function BurgerConstructor() {
     (element) => element.currentIngredient._id
   );
   const openModal = () => {
-    fetch("https://norma.nomoreparties.space/api/orders", {
+    fetch(`${baseUrl + '/orders'}`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json; charset=UTF-8",
@@ -101,12 +102,7 @@ export default function BurgerConstructor() {
         ingredients: selectedIngredientsIds,
       }),
     })
-      .then((res) => {
-        if (res.ok) {
-          return res.json();
-        }
-        return Promise.reject(`Ошибка ${res.status}`);
-      })
+      .then(checkResponse)
       .then((data) => {
         setOrderNumber(data.order.number);
       })

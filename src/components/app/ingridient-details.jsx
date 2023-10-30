@@ -29,10 +29,10 @@ export function IngredientDetails({ingredient}) {
 }
 
 IngredientDetails.propTypes = {
-    src: PropTypes.any,
-    name: PropTypes.string,
-    calories: PropTypes.number,
-    proteins: PropTypes.number,
-    fat: PropTypes.number,
-    carbohydrates: PropTypes.number
+    src: PropTypes.any.isRequired,
+    name: PropTypes.string.isRequired,
+    calories: PropTypes.number.isRequired,
+    proteins: PropTypes.number.isRequired,
+    fat: PropTypes.number.isRequired,
+    carbohydrates: PropTypes.number.isRequired
 }

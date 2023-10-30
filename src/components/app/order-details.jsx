@@ -13,5 +13,5 @@ export function OrderDetails({orderNumber}) {
 }
 
 OrderDetails.propTypes = {
-    orderNumber: PropTypes.any,
+    orderNumber: PropTypes.any.isRequired,
   };

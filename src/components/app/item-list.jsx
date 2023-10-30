@@ -30,6 +30,6 @@ export default function ItemList(props) {
   }
   
   ItemList.propTypes = {
-    data: PropTypes.array,
-    type: PropTypes.string,
+    data: PropTypes.array.isRequired,
+    type: PropTypes.string.isRequired,
   };

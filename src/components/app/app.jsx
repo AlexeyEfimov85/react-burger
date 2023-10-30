@@ -7,7 +7,7 @@ import { IngredientDetails } from "./ingridient-details";
 import React from "react";
 import { DataContext } from "../../services/appContext";
 import { IngredientContext } from "../../services/burgerIngredientContext";
-
+import { baseUrl, checkResponse } from "../../utils/burger-api";
 function App() {
   const [currentIngredient, setcurrentIngredient] = React.useState(null);
   const closeModal = () => {
@@ -20,13 +20,8 @@ function App() {
   React.useEffect(() => {
     const getIngredients = () => {
       setState({ ...state, isLoading: true });
-      fetch("https://norma.nomoreparties.space/api/ingredients")
-        .then((res) => {
-          if (res.ok) {
-            return res.json();
-          }
-          return Promise.reject(`Ошибка ${res.status}`);
-        })
+      fetch( `${baseUrl + '/ingredients'}`)
+        .then(checkResponse)
         .then((object) => {
           setState({ data: object.data, isLoading: false });
         })

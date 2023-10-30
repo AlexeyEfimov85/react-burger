@@ -11,6 +11,6 @@ export default function TotalOrder(props) {
 }
 
 TotalOrder.propTypes = {
-  price: PropTypes.number,
+  price: PropTypes.number.isRequired,
 };
 

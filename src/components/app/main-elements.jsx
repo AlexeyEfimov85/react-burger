@@ -21,5 +21,5 @@ export default function MainElements(props) {
 }
 
 MainElements.propTypes = {
-  data: PropTypes.array
+  data: PropTypes.array.isRequired
 };
