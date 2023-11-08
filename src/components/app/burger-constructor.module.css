@@ -20,6 +20,7 @@
 }
 .burgerConstructorMainElementWrapper {
     max-height: 50vh; 
+    min-height: 200px;
     overflow-y: scroll; 
     display: flex; 
     flex-direction: column; 

@@ -1,6 +1,7 @@
 import styles from './order-details.module.css'
-import PropTypes from 'prop-types'; 
-export function OrderDetails({orderNumber}) {
+import { useSelector } from 'react-redux'
+export function OrderDetails() {
+    const orderNumber = useSelector(store => store.getOrderDetailsReducer.orderDetails);
     return (
         <div className={styles.orderDetails}>
             <span className='mt-30 mb-8 text text_type_digits-large'>{orderNumber}</span>
@@ -11,7 +12,3 @@ export function OrderDetails({orderNumber}) {
         </div>
     )
 }
-
-OrderDetails.propTypes = {
-    orderNumber: PropTypes.any.isRequired,
-  };

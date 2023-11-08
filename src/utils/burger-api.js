@@ -5,3 +5,13 @@ export const checkResponse = (res) => {
       }
       return Promise.reject(`Ошибка ${res.status}`);
     }
+
+
+export const getIngredients = () => {
+      fetch( `${baseUrl + '/ingredients'}`)
+        .then(checkResponse)
+        .then((object) => {
+          return object.data;
+        })
+        .catch((err) => console.log(err));
+      }

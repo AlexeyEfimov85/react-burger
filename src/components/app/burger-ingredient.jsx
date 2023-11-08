@@ -1,26 +1,37 @@
 import styles from "./burger-ingredient.module.css";
+import { useEffect } from 'react';
+import { useDispatch } from "react-redux";
 import PropTypes from "prop-types";
-import React from "react";
-import Modal from "./modal";
-import { IngredientDetails } from "./ingridient-details";
 import Tabs from './tabs';
 import Article from "./article";
 import ItemList from "./item-list";
-export default function BurgerIngredients({ data, onClick, children }) {
-  
+export default function BurgerIngredients({children }) {
+  const dispatch = useDispatch();
+  useEffect(()=> {
+    const container = document.querySelector('.custom-scroll');
+    container.addEventListener('scroll', ()=>{
+      if(container.scrollTop <= 300) {
+        dispatch({type: 'SET_CURRENT_TAB_ONE'})
+      } else if(container.scrollTop > 300 && container.scrollTop <= 800) {
+        dispatch({type: 'SET_CURRENT_TAB_TWO'})
+      } else if(container.scrollTop > 800) {
+        dispatch({type: 'SET_CURRENT_TAB_THREE'})
+      }
+    })
+  },[])
   return (
     <section className={styles.sectionBurgerIngredients}>
       <h1 className="text text_type_main-large">Соберите бургер </h1>
       <Tabs />
       <div className={`${styles.ingredientsWrapper} custom-scroll`}>
         <Article text={"Булки"}>
-          <ItemList data={data} type="bun" onClick={onClick} />
+          <ItemList  type="bun"  />
         </Article>
         <Article text={"Соусы"}>
-          <ItemList data={data} type="sauce" onClick={onClick} />
+          <ItemList  type="sauce"  />
         </Article>
         <Article text={"Начинки"}>
-          <ItemList data={data} type="main" onClick={onClick} />
+          <ItemList  type="main"  />
         </Article>
       {children}
       </div>
@@ -29,7 +40,5 @@ export default function BurgerIngredients({ data, onClick, children }) {
 }
 
 BurgerIngredients.propTypes = {
-  data: PropTypes.array.isRequired,
-  onClick: PropTypes.func.isRequired,
-  children: PropTypes.any.isRequired
+  children: PropTypes.any
 };

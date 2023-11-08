@@ -18,7 +18,7 @@ function NavListItem(props) {
 }
 
 NavListItem.propTypes = {
-  children: PropTypes.any.isRequired,
+  children: PropTypes.any,
 };
 
 function NavList() {
