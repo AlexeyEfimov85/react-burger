@@ -1,4 +1,4 @@
-import { baseUrl } from "../../utils/burger-api";
+import { baseUrl, request } from "../../utils/burger-api";
 export const GET_INGREDIENTS = 'GET_INGREDIENTS';
 export const GET_INGREDIENTS_SUCCESS = 'GET_INGREDIENTS_SUCCESS';
 export const GET_INGREDIENTS_FAILED = 'GET_INGREDIENTS_FAILED';
@@ -13,18 +13,7 @@ export function getIngredientsAction() {
       type: GET_INGREDIENTS
     })
         // Запрашиваем данные у сервера
-        fetch( `${baseUrl + '/ingredients'}`).then( res  => {
-      if (res.ok) {
-                // В случае успешного получения данных вызываем экшен
-                // для записи полученных данных в хранилище
-        return res.json()
-      } else {
-                // Если произошла ошибка, отправляем соответствующий экшен
-        dispatch({
-          type: GET_INGREDIENTS_FAILED
-        })
-      }
-    })
+    request(`${baseUrl + '/ingredients'}`)
     .then ((object)=> {
         dispatch({
             type: GET_INGREDIENTS_SUCCESS,
@@ -32,7 +21,7 @@ export function getIngredientsAction() {
           })
     })
     .catch( err => {
-            // Если сервер не вернул данных, также отправляем экшен об ошибке
+            // На основание данных в сторе об ошибке можно строить локику открытия дополнительных попапов
             dispatch({
                 type: GET_INGREDIENTS_FAILED
             })

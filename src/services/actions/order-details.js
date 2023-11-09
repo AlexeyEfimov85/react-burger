@@ -1,4 +1,4 @@
-import { baseUrl } from "../../utils/burger-api";
+import { baseUrl, request } from "../../utils/burger-api";
 
 export const GET_ORDERDETAILS = "GET_ORDERDETAILS";
 export const GET_ORDERDETAILS_SUCCESS = "GET_ORDERDETAILS_SUCCESS";
@@ -9,24 +9,14 @@ export function getOrderDetailsAction(selectedIngredientsIds) {
    dispatch({
       type: GET_ORDERDETAILS,
      })
-    fetch(`${baseUrl + "/orders"}`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json; charset=UTF-8",
-      },
-      body: JSON.stringify({
-        ingredients: selectedIngredientsIds,
-      }),
-    })
-      .then((res) => {
-        if (res.ok) {
-          return res.json();
-        } else {
-            
-          dispatch({
-            type: GET_ORDERDETAILS_FAILED,
-          });
-        }
+      request(`${baseUrl + "/orders"}`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json; charset=UTF-8",
+        },
+        body: JSON.stringify({
+          ingredients: selectedIngredientsIds,
+        }),
       })
       .then((data) => {
         dispatch({

@@ -7,11 +7,7 @@ export const checkResponse = (res) => {
     }
 
 
-export const getIngredients = () => {
-      fetch( `${baseUrl + '/ingredients'}`)
-        .then(checkResponse)
-        .then((object) => {
-          return object.data;
-        })
-        .catch((err) => console.log(err));
-      }
+export function request(url, options) {
+  // принимает два аргумента: урл и объект опций, как и `fetch`
+  return fetch(url, options).then(checkResponse)
+}

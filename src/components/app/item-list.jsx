@@ -8,11 +8,12 @@ import {
 import { useSelector, useDispatch } from "react-redux";
 import { getIngredientsAction } from "../../services/actions/burger-ingredient";
 import { useDrag } from "react-dnd";
+import { SET_INGREDIENT_DETAILS } from '../../services/actions/ingredient-details';
 
 export default function ItemList(props) {
   const dispatch = useDispatch();
   React.useEffect(() => {
-    dispatch(getIngredientsAction());
+    dispatch(getIngredientsAction())
   }, []);
   const data = useSelector((store) => store.getIngredientsReducer.ingredients);
   const [, dragRef] = useDrag({
@@ -24,7 +25,7 @@ export default function ItemList(props) {
   return (
     <ul className={styles.list}>
       {arr.map((listItem) => (
-        <Item listItem={listItem} />
+        <Item listItem={listItem} key={listItem._id} />
       ))}
     </ul>
   );
@@ -52,7 +53,7 @@ let idInCart;
   }
   const dispatch = useDispatch();
   const setIngredientDetails = (listItem) => {
-    dispatch({ type: "SET_INGREDIENT_DETAILS", ingredient: listItem });
+    dispatch({ type: SET_INGREDIENT_DETAILS, ingredient: listItem });
   };
   const [, dragRef] = useDrag({
     type: "ingredient",
