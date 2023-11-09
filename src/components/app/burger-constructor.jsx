@@ -55,11 +55,14 @@ export default function BurgerConstructor() {
   const allIngredientsInCart = React.useMemo(() => {
     return arrMain.concat(lastBun);
   }, [arrMain, lastBun]); //список ингредиентов в корзине для счетчика в ингредиентах
+  console.log(allIngredientsInCart)
   const [, dropRef] = useDrop({
     accept: "ingredient",
-    drop(item) {
-      item.key = uuidv4();
-      dispatch({ type: ADD_INGREDIENT, ingredient: item });
+    drop(item) {  
+      dispatch({ type: ADD_INGREDIENT, ingredient:  {
+        ...item, // используем `spread`, чтобы поменять ссылку на объект. Таким образом `redux` обновит его в хранилище
+       key: uuidv4()  // и добавляем в объект новое поле, которое потом будет использовано в `key`
+    }});
     },
   });
   React.useEffect(() => {
@@ -111,7 +114,7 @@ export default function BurgerConstructor() {
                   allIngredientsInCart={allIngredientsInCart}
                   index={index}
                   moveCard={moveCard}
-                  ket = {listItem.key}
+                  key = {listItem.key}
                 />
               ))}
             </ul>
@@ -176,7 +179,6 @@ function CartItem({ listItem, allIngredientsInCart, index, moveCard }) {
       }
       moveCard(dragIndex, hoverIndex);
       item.index = hoverIndex;
-      console.log(item.index);
     },
   });
   const dispatch = useDispatch();
