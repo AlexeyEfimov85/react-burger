@@ -1,0 +1,8 @@
+.sectionBurgerIngredients {
+    width: 600px;
+}
+
+.ingredientsWrapper {
+    max-height: 80vh;
+    overflow-y: scroll;
+}

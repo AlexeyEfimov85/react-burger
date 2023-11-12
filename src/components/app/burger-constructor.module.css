@@ -1,0 +1,44 @@
+.burgerConstructor {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    width: 600px;
+}
+
+.burgerConstructorMainElement {
+    width: 100%; 
+    display: flex; 
+    justify-content: space-between; 
+    align-items: center;
+}
+
+.burgerConstructorAllElemenstWrapper {
+    display: flex; 
+    flex-direction: column; 
+    gap: 10px; 
+    width: 100%;
+}
+.burgerConstructorMainElementWrapper {
+    max-height: 50vh; 
+    min-height: 200px;
+    overflow-y: scroll; 
+    display: flex; 
+    flex-direction: column; 
+    gap: 10px; 
+    width: 100%;
+}
+
+.totalWrapper {
+    display: flex; 
+    justify-content: flex-end; 
+    align-items: center;
+}
+
+.list {
+    display: flex;
+    justify-content: space-between;
+    padding: 0;
+    margin: 24px 0;
+    flex-wrap: wrap;
+    gap: 10px;
+}

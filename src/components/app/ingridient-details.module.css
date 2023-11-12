@@ -1,0 +1,28 @@
+.ingredientDetails {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.modalHeading {
+    align-self: flex-start;
+    height: 64px;
+}
+
+.ingredientDetailsPicture {
+    width: 480px;
+    height: 240px;
+}
+
+.ingredientParameters {
+    display: flex;
+    gap: 20px;
+    margin-top: 32px;
+}
+
+.ingredientParameter {
+    display: flex;
+    flex-direction: column;
+    margin: 0;
+    align-items: center;
+}
