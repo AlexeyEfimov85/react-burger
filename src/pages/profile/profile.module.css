@@ -1,0 +1,20 @@
+.container {
+    display: flex;
+    margin: 80px 40px;
+}
+
+
+.linkContainer a {
+    text-decoration: none;
+    line-height: 64px;
+}
+
+.linkContainer {
+    width: 350px;
+}
+
+.linkText {
+    margin: 0;
+}
+
+

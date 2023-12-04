@@ -9,6 +9,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { getIngredientsAction } from "../../services/actions/burger-ingredient";
 import { useDrag } from "react-dnd";
 import { SET_INGREDIENT_DETAILS } from '../../services/actions/ingredient-details';
+import { useLocation, Link } from "react-router-dom";
 
 export default function ItemList(props) {
   const dispatch = useDispatch();
@@ -16,12 +17,7 @@ export default function ItemList(props) {
     dispatch(getIngredientsAction())
   }, []);
   const data = useSelector((store) => store.getIngredientsReducer.ingredients);
-  const [, dragRef] = useDrag({
-    type: "ingredient",
-    item: data,
-  });
   const arr = data.filter((element) => element.type === props.type);
-
   return (
     <ul className={styles.list}>
       {arr.map((listItem) => (
@@ -37,6 +33,8 @@ ItemList.propTypes = {
 };
 
 function Item({ listItem }) {
+  const location = useLocation();
+  const ingredientId = listItem['_id'];
   const count = useSelector(store => store.setIngredientCounterReducer.cart).map((item)=> {
     return item._id 
   }).reduce(function(acc, el) {
@@ -60,6 +58,15 @@ let idInCart;
     item: listItem,
   });
   return (
+    <Link
+      key={ingredientId}
+      // Тут мы формируем динамический путь для нашего ингредиента
+      to={`/ingredients/${ingredientId}`}
+      // а также сохраняем в свойство background роут,
+      // на котором была открыта наша модалка
+      state={{ background: location }}
+      className={styles.link}
+    >
     <li
       ref={dragRef}
       onClick={() => setIngredientDetails(listItem)}
@@ -75,5 +82,6 @@ let idInCart;
         <Counter count={counter} size="default" extraClass="m-1" />
       )}
     </li>
+    </Link>
   );
 }

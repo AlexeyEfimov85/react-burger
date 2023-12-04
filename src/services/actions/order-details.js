@@ -13,6 +13,7 @@ export function getOrderDetailsAction(selectedIngredientsIds) {
         method: "POST",
         headers: {
           "Content-Type": "application/json; charset=UTF-8",
+          Authorization: localStorage.getItem('accessToken')
         },
         body: JSON.stringify({
           ingredients: selectedIngredientsIds,

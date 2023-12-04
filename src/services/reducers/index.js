@@ -7,6 +7,11 @@ import { getOrderDetailsReducer } from './order-details';
 import { setCurrentTabReducer } from './tab';
 import { remainDraggedIngredient } from './remain-dragged-ingredient';
 import { setIngredientCounterReducer } from './ingredient-counter';
+import { recoverPasswordReducer } from './password-recover'; // п.1 ПР
+import { setNewPasswordReducer } from './reset-password'; // п.2 ПР
+import { registerNewUserReducer } from './user-register'; // п.4 ПР
+import { signInReducer } from './auth'; // п.4 ПР
+import { logoutReducer } from './logout'; // п.4 ПР
 
 export const rootReducer = combineReducers({
     getIngredientsReducer,
@@ -16,5 +21,10 @@ export const rootReducer = combineReducers({
     getOrderDetailsReducer,
     setCurrentTabReducer,
     remainDraggedIngredient,
-    setIngredientCounterReducer
+    setIngredientCounterReducer,
+    recoverPasswordReducer,
+    setNewPasswordReducer,
+    registerNewUserReducer,
+    signInReducer,
+    logoutReducer
 })

@@ -21,6 +21,7 @@
     list-style: none;
     display: flex;
     padding: 0 20px;
+    align-items: center;
 }
 
 
@@ -38,4 +39,5 @@
 
 .listItemLink {
     justify-self: end;
+    text-decoration: none;
 }

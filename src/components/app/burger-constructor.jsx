@@ -19,7 +19,10 @@ import {
   ADD_INGREDIENT,
   CHANGE_ELEMENTS_ORDER,
 } from "../../services/actions/ingredient-counter";
+import { GET_ORDERDETAILS_SUCCESS } from "../../services/actions/order-details";
 import { v4 as uuidv4 } from 'uuid';
+import { useNavigate } from "react-router-dom";
+
 export default function BurgerConstructor() {
   const dispatch = useDispatch();
   const isOpen = useSelector((store) => store.setIsOpenReducer.isOpen);
@@ -42,6 +45,10 @@ export default function BurgerConstructor() {
       type: INCREASE_INGREDIENT_COUNTER,
       ingredient: [],
     });
+    dispatch({
+      type: GET_ORDERDETAILS_SUCCESS,
+      orderDetails: null,
+    });
   };
   const arrMain = data.filter(
     (element) => element !== null && element.type !== "bun"
@@ -55,7 +62,6 @@ export default function BurgerConstructor() {
   const allIngredientsInCart = React.useMemo(() => {
     return arrMain.concat(lastBun);
   }, [arrMain, lastBun]); //список ингредиентов в корзине для счетчика в ингредиентах
-  console.log(allIngredientsInCart)
   const [, dropRef] = useDrop({
     accept: "ingredient",
     drop(item) {  
@@ -77,10 +83,16 @@ export default function BurgerConstructor() {
   const selectedIngredientsIds = selectedIngredients.map(
     (element) => element._id
   );
+  const navigate = useNavigate();
   const openModal = () => {
-    dispatch(getOrderDetailsAction(selectedIngredientsIds));
+    const token = localStorage.getItem('accessToken')
+    if(!token){
+      navigate('/login')
+    } else {
+     dispatch(getOrderDetailsAction(selectedIngredientsIds));
     dispatch({ type: SET_OPEN });
   };
+}
   const moveCard = (dragIndex, hoverIndex) => {
     const dragIngredient = allIngredientsInCart[dragIndex];
     const newAllIngredientsInCart = [...allIngredientsInCart];
