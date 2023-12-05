@@ -11,12 +11,18 @@ import Register from "../../pages/registration/register";
 import ForgotPassword from "../../pages/registration/forgot-password";
 import ResetPassword from "../../pages/registration/reset-password";
 import Profile from "../../pages/profile/profile";
-import { ProtectedRouteElement } from "./protected-route";
-import { AllowedRouteElement } from "./allowed-route";
+import { OnlyAuth, OnlyUnAuth } from "./protected-route";
 import  Modal  from '../../components/app/modal';
 import { NotFound404 } from '../../pages/NotFound404';
+import { getIngredientsAction } from '../../services/actions/burger-ingredient'
+import { useEffect } from "react";
+import { useDispatch } from "react-redux";
 
 export default function App() {
+  const dispatch = useDispatch();
+  useEffect(()=>{
+    dispatch(getIngredientsAction())
+  }, [dispatch])
   const location = useLocation();
   const navigate = useNavigate();
   const background = location.state && location.state.background;
@@ -31,23 +37,23 @@ export default function App() {
         <Route path="/" element={<Main />} />
         <Route
           path="/login"
-          element={<AllowedRouteElement element={<SignIn />} />}
+          element={<OnlyUnAuth component={<SignIn />} />}
         />
         <Route
           path="/register"
-          element={<AllowedRouteElement element={<Register />} />}
+          element={<OnlyUnAuth component={<Register />} />}
         />
         <Route
           path="/forgot-password"
-          element={<AllowedRouteElement element={<ForgotPassword />} />}
+          element={<OnlyUnAuth component={<ForgotPassword />} />}
         />
         <Route
           path="/reset-password"
-          element={<AllowedRouteElement element={<ResetPassword />} />}
+          element={<OnlyUnAuth component={<ResetPassword />} />}
         />
         <Route
           path="/profile"
-          element={<ProtectedRouteElement element={<Profile />} />}
+          element={<OnlyAuth component={<Profile />} />}
         />
       <Route path='/ingredients/:ingredientId'
                element={<IngredientDetails />} /> 

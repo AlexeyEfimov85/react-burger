@@ -1,21 +1,14 @@
-import React from "react";
 import PropTypes from "prop-types";
 import styles from "./item-list.module.css";
 import {
   CurrencyIcon,
   Counter,
 } from "@ya.praktikum/react-developer-burger-ui-components";
-import { useSelector, useDispatch } from "react-redux";
-import { getIngredientsAction } from "../../services/actions/burger-ingredient";
+import { useSelector } from "react-redux";
 import { useDrag } from "react-dnd";
-import { SET_INGREDIENT_DETAILS } from '../../services/actions/ingredient-details';
 import { useLocation, Link } from "react-router-dom";
 
 export default function ItemList(props) {
-  const dispatch = useDispatch();
-  React.useEffect(() => {
-    dispatch(getIngredientsAction())
-  }, []);
   const data = useSelector((store) => store.getIngredientsReducer.ingredients);
   const arr = data.filter((element) => element.type === props.type);
   return (
@@ -49,10 +42,7 @@ let idInCart;
       idInCart = id;
     }
   }
-  const dispatch = useDispatch();
-  const setIngredientDetails = (listItem) => {
-    dispatch({ type: SET_INGREDIENT_DETAILS, ingredient: listItem });
-  };
+
   const [, dragRef] = useDrag({
     type: "ingredient",
     item: listItem,
@@ -69,7 +59,6 @@ let idInCart;
     >
     <li
       ref={dragRef}
-      onClick={() => setIngredientDetails(listItem)}
       className={styles.listItem}
       key={listItem._id}
     >

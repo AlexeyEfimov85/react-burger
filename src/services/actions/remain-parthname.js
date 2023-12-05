@@ -1,0 +1,1 @@
+export const REMAIN_PARTHNAME = 'REMAIN_PARTHNAME';

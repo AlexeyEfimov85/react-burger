@@ -15,7 +15,7 @@ const checkReponse = (res) => {
 };
 
 export const refreshToken = () => {
-  return fetch(`${baseUrl + "/auth/token"}`, {
+  return request(`${baseUrl + "/auth/token"}`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json; charset=UTF-8",
@@ -23,7 +23,7 @@ export const refreshToken = () => {
     body: JSON.stringify({
       token: localStorage.getItem("refreshToken"),
     }),
-  }).then(checkReponse);
+  })
 };
 
 export const fetchWithRefresh = async (url, options) => {

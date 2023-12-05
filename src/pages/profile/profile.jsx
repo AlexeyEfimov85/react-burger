@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useState, useRef, useEffect } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
 import {
   Input,
@@ -9,27 +9,31 @@ import {
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from "./profile.module.css";
 import { logoutAction } from "../../services/actions/logout";
-import { fetchWithRefresh, baseUrl, checkResponse } from "../../utils/burger-api";
+import { SIGN_IN_SUCCESS } from "../../services/actions/auth";
+import {  refreshUserValueAction } from "../../services/actions/refresh-user";
+import { changeUserValueAction } from "../../services/actions/change-user-value";
 
 export default function Profile() {
+  const user = useSelector(store => store.signInReducer.user)
+  console.log(user)
   const [buttonsShowValue, setButtonsShowValue] = useState(false); // для отображения кнопок сохранить && отмена
   const [userValue, setUserValue] = useState({
-    name: '',
-    email: '',
-    password: '*****'
+    name: user.name,
+    email: user.email,
+    password: "*****",
   });
-  const onNameChange = e => {
-    setUserValue({...userValue, name: e.target.value})
-    setButtonsShowValue(true)
-  } 
-  const onEmailChange = e => {
-    setUserValue({...userValue, email: e.target.value})
-    setButtonsShowValue(true)
-  }
-  const onPasswordChange = e => {
-    setUserValue({...userValue, password: e.target.value})
-    setButtonsShowValue(true)
-  }
+  const onNameChange = (e) => {
+    setUserValue({ ...userValue, name: e.target.value });
+    setButtonsShowValue(true);
+  };
+  const onEmailChange = (e) => {
+    setUserValue({ ...userValue, email: e.target.value });
+    setButtonsShowValue(true);
+  };
+  const onPasswordChange = (e) => {
+    setUserValue({ ...userValue, password: e.target.value });
+    setButtonsShowValue(true);
+  };
   // делаем иконку инпутов кликабильной
   const inputNameRef = useRef(null);
   const onIconNameClick = () => {
@@ -43,67 +47,35 @@ export default function Profile() {
   const onIconPasswordClick = () => {
     setTimeout(() => inputPasswordRef.current.focus(), 0);
   };
-  //отправляем запрос на сервер для получения данных пользователя, в then подставляем данные
+
   useEffect(() => {
-    fetchWithRefresh(`${baseUrl + "/auth/user"}`, {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json; charset=UTF-8",
-        authorization: localStorage.getItem("accessToken"),
-      },
-    }).then((res) => {
-      setUserValue({...userValue, name: res.user.name, email: res.user.email})
-    });
+    dispatch(refreshUserValueAction())
   }, []);
 
   const dispatch = useDispatch();
-  // выход из профиля: отсылаем асихронный экшн, очищаем данные пользователя в хранилище
+  // выход из профиля: отсылаем асинхронный экшн, очищаем данные пользователя в хранилище
   const signOut = () => {
     dispatch(logoutAction());
+    dispatch({
+      type : SIGN_IN_SUCCESS,
+      user : null,
+      isAuthChecked: false
+    })
     localStorage.removeItem("accessToken");
     localStorage.removeItem("refreshToken");
   };
 
   // изменение данных пользователя
-   const changeUser = () => {
-  return fetch(`${baseUrl + "/auth/user"}`, {
-    method: "PATCH",
-    headers: {
-      "Content-Type": "application/json; charset=UTF-8",
-      authorization: localStorage.getItem("accessToken"),
-    },
-    body: JSON.stringify({
-      name: userValue.name, 
-      email: userValue.email, 
-      password: userValue.password,
-    }),
-  }).then(checkResponse);
-}
-const saveChanges = async () => {
-  await changeUser();
-  fetchWithRefresh(`${baseUrl + "/auth/user"}`, {
-    method: "GET",
-    headers: {
-      "Content-Type": "application/json; charset=UTF-8",
-      authorization: localStorage.getItem("accessToken"),
-    },
-  }).then((res) => {
-    setUserValue({...userValue, name: res.user.name, email: res.user.email})
-  });
-  setButtonsShowValue(false)
-}
-const cancelChanges = () => {
-  fetchWithRefresh(`${baseUrl + "/auth/user"}`, {
-    method: "GET",
-    headers: {
-      "Content-Type": "application/json; charset=UTF-8",
-      authorization: localStorage.getItem("accessToken"),
-    },
-  }).then((res) => {
-    setUserValue({...userValue, name: res.user.name, email: res.user.email})
-  });
-  setButtonsShowValue(false)
-}
+  const changeUser = () => {
+    dispatch(changeUserValueAction(userValue));
+    dispatch(refreshUserValueAction())
+    setButtonsShowValue(false);
+  };
+
+  const cancelChanges = () => {
+    setButtonsShowValue(false);
+    setUserValue({...userValue, name : user.name, email : user.email })
+  };
 
   return (
     <>
@@ -147,7 +119,6 @@ const cancelChanges = () => {
           />
           <EmailInput
             onChange={onEmailChange}
-            ref={inputEmailRef}
             icon={"EditIcon"}
             onIconClick={onIconEmailClick}
             value={userValue.email}
@@ -164,7 +135,12 @@ const cancelChanges = () => {
             extraClass="mb-6"
           />
           {buttonsShowValue && (
-            <Button htmlType="button" type="secondary" size="small" onClick={cancelChanges}>
+            <Button
+              htmlType="button"
+              type="secondary"
+              size="small"
+              onClick={cancelChanges}
+            >
               Отмена
             </Button>
           )}
@@ -174,7 +150,7 @@ const cancelChanges = () => {
               type="primary"
               size="small"
               extraClass="ml-2"
-              onClick={saveChanges}
+              onClick={changeUser}
             >
               Сохранить
             </Button>

@@ -7,26 +7,17 @@ import { useSelector } from "react-redux";
 export function IngredientDetails() {
   const [currentIngredient, setCurrentIngredient] = useState();
   const { ingredientId } = useParams();
+  const ingredients = useSelector(store => store.getIngredientsReducer.ingredients)
   const ingredientInStore = useSelector(store => store.setIngredientDetailsReducer.ingredient);
-  async function getIngredients() {
-    try {
-      await request(`${baseUrl + "/ingredients"}`).then((object) => {
-        let URLIngredient = {}; 
-        object.data.forEach(function (item) {
-          if(item._id === ingredientId) {
-            URLIngredient = item;
-          }
-        });
-        ingredientInStore ? setCurrentIngredient(ingredientInStore) : (setCurrentIngredient(URLIngredient))
-      });
-    } catch (err) {
-      console.log(err);
+  let URLIngredient ; 
+  ingredients.forEach(function (item) {
+    if(item._id === ingredientId) {
+      URLIngredient = item;
     }
-  }
- 
-  useEffect(() => {
-    getIngredients();
-  }, []);
+  });
+ useEffect(() => {
+    setCurrentIngredient(URLIngredient)
+  }, [URLIngredient]);
   return (
     <div className={styles.ingredientDetails}>
       {currentIngredient ? (

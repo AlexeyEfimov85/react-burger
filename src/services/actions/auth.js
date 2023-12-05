@@ -28,6 +28,7 @@ export function signInAction(userValue) {
           accessToken: data.accessToken,
           refreshToken: data.refreshToken,
           user: data.user,
+          isAuthChecked: true,
         });
 
       })

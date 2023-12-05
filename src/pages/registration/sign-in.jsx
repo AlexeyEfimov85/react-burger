@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import {  useState } from "react";
+import { useState, useRef } from "react";
 import {
   EmailInput,
   Button,
@@ -15,21 +15,27 @@ export default function SignIn() {
     login: "",
     password: "",
   });
-  
+
   const signIn = () => {
     dispatch(signInAction(userValue));
   };
 
-
+  const inputRef = useRef(null);
+  const onIconClick = () => {
+    setTimeout(() => inputRef.current.focus(), 0);
+  };
   return (
     <div className={styles.container}>
       <h1 className="text text_type_main-medium mb-6">Вход</h1>
-      <form className={`${styles.form} text text_type_main-default`}>
+      <form
+        className={`${styles.form} text text_type_main-default`}
+        onSubmit={signIn}
+      >
         <EmailInput
           onChange={(e) =>
             setUserValue({ ...userValue, login: e.target.value })
           }
-          //value={value}
+          value={userValue.login}
           name={"email"}
           placeholder="Логин"
           isIcon={false}
@@ -42,11 +48,11 @@ export default function SignIn() {
             setUserValue({ ...userValue, password: e.target.value })
           }
           icon={"ShowIcon"}
-          //value={value}
+          value={userValue.password}
           name={"name"}
           error={false}
-          // ref={inputRef}
-          // onIconClick={onIconClick}
+          ref={inputRef}
+          onIconClick={onIconClick}
           errorText={"Ошибка"}
           size={"default"}
           extraClass="mb-6"
@@ -56,7 +62,6 @@ export default function SignIn() {
           type="primary"
           size="medium"
           extraClass="mb-20"
-          onClick={signIn}
         >
           Войти
         </Button>

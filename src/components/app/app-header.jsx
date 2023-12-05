@@ -65,14 +65,17 @@ export default function Header() {
     <header className={styles.header}>
       <div className={styles.headerWrapper}>
         <Nav />
+        <Link to='/'>
         <div className={styles.logoContainer}>
           <Logo />
         </div>
+        </Link>
         <NavLink to="/profile" className= {`${styles.listItemLink} text text_type_main-default text_color_inactive`} style={({ isActive }) => {
               return {
                 color: isActive ? "white" : "",
               };
-            }}>
+            }}
+            state={{ from: "/profile" }}>
           <NavListItem
             icon={<ProfileIcon type="secondary" />}
             text={
