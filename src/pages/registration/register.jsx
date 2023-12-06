@@ -16,8 +16,9 @@ import { registerNewUserAction } from '../../services/actions/user-register';
       login: '',
       password: ''
     })
-const onClick = () => {
-dispatch(registerNewUserAction(userValue))
+const onClick = (e) => {
+  e.preventDefault();
+  dispatch(registerNewUserAction(userValue));
 }
 const inputRef = useRef(null)
 const onIconClick = () => {
@@ -28,7 +29,7 @@ const onIconClick = () => {
     return (
       <div className={styles.container}>
         <h1 className="text text_type_main-medium mb-6">Вход</h1>
-        <form className={`${styles.form} text text_type_main-default`} onSubmit={onClick}>
+        <form className={`${styles.form} text text_type_main-default`} onSubmit={ (e) => onClick(e) }>
         <Input
             type={"text"}
             placeholder={"Имя"}
@@ -66,7 +67,7 @@ const onIconClick = () => {
             size={"default"}
             extraClass="mb-6"
           />
-          <Button htmlType="button" type="primary" size="medium" extraClass="mb-20">
+          <Button htmlType="submit" type="primary" size="medium" extraClass="mb-20">
             Зарегистрироваться
           </Button>
         </form>

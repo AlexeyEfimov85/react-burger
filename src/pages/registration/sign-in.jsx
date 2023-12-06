@@ -16,7 +16,8 @@ export default function SignIn() {
     password: "",
   });
 
-  const signIn = () => {
+  const signIn = (e) => {
+    e.preventDefault();
     dispatch(signInAction(userValue));
   };
 
@@ -29,7 +30,7 @@ export default function SignIn() {
       <h1 className="text text_type_main-medium mb-6">Вход</h1>
       <form
         className={`${styles.form} text text_type_main-default`}
-        onSubmit={signIn}
+        onSubmit={(e) => signIn(e)}
       >
         <EmailInput
           onChange={(e) =>
@@ -58,10 +59,11 @@ export default function SignIn() {
           extraClass="mb-6"
         />
         <Button
-          htmlType="button"
+          htmlType="submit"
           type="primary"
           size="medium"
           extraClass="mb-20"
+          onClick={signIn}
         >
           Войти
         </Button>

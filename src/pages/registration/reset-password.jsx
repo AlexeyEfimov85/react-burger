@@ -20,7 +20,8 @@ export default function ResetPassword() {
     alert("Icon Click Callback");
   };
 
-  const recoverPassword = () => {
+  const recoverPassword = (e) => {
+    e.preventDefault();
     dispatch(setNewPasswordAction(value));
   };
   //проверка на наличие флага
@@ -37,7 +38,7 @@ export default function ResetPassword() {
       <h1 className="text text_type_main-medium mb-6">Восстановление пароля</h1>
       <form
         className={`${styles.form} text text_type_main-default`}
-        onSubmit={recoverPassword}
+        onSubmit={(e) => recoverPassword(e)}
       >
         <Input
           type={"text"}
@@ -70,7 +71,7 @@ export default function ResetPassword() {
           extraClass="mb-6"
         />
         <Button
-          htmlType="button"
+          htmlType="submit"
           type="primary"
           size="medium"
           extraClass="mb-20"
@@ -81,7 +82,7 @@ export default function ResetPassword() {
       <div className="text text_type_main-small mb-4">
         <span>Вспомнили пароль?</span>
         <Link to="/login">
-          <Button htmlType="button" type="secondary" size="small">
+          <Button htmlType="submit" type="secondary" size="small">
             Войти
           </Button>
         </Link>

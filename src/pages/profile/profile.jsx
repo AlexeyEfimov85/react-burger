@@ -15,7 +15,6 @@ import { changeUserValueAction } from "../../services/actions/change-user-value"
 
 export default function Profile() {
   const user = useSelector(store => store.signInReducer.user)
-  console.log(user)
   const [buttonsShowValue, setButtonsShowValue] = useState(false); // для отображения кнопок сохранить && отмена
   const [userValue, setUserValue] = useState({
     name: user.name,

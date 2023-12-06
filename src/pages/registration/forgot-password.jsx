@@ -15,7 +15,8 @@ export default function ForgotPassword() {
     setValue(e.target.value);
   };
   const navigate = useNavigate();
-  const recoverPassword = () => {
+  const recoverPassword = (e) => {
+    e.preventDefault();
     dispatch(recoverPasswordAction(value));
     localStorage.setItem("flag", "flag"); //ставим флаг в локалсторэдж для экрана ввода проверочного кода
     navigate("/reset-password"); // переходим на экран ввода проверочного кода
@@ -26,7 +27,7 @@ export default function ForgotPassword() {
       <h1 className="text text_type_main-medium mb-6">Восстановление пароля</h1>
       <form
         className={`${styles.form} text text_type_main-default`}
-        onSubmit={recoverPassword}
+        onSubmit={ (e) => recoverPassword(e)}
       >
         <EmailInput
           onChange={onChange}
@@ -37,7 +38,7 @@ export default function ForgotPassword() {
           extraClass="mb-6"
         />
         <Button
-          htmlType="button"
+          htmlType="submit"
           type="primary"
           size="medium"
           extraClass="mb-20"
@@ -48,7 +49,7 @@ export default function ForgotPassword() {
       <div className="text text_type_main-small mb-4">
         <span>Вспомнили пароль</span>
         <Link to="/login">
-          <Button htmlType="button" type="secondary" size="small">
+          <Button htmlType="submit" type="secondary" size="small">
             Войти
           </Button>
         </Link>
