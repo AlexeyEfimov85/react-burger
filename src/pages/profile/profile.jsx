@@ -47,9 +47,9 @@ export default function Profile() {
     setTimeout(() => inputPasswordRef.current.focus(), 0);
   };
 
-  useEffect(() => {
+/*   useEffect(() => {
     dispatch(refreshUserValueAction())
-  }, []);
+  }, []); */
 
   const dispatch = useDispatch();
   // выход из профиля: отсылаем асинхронный экшн, очищаем данные пользователя в хранилище

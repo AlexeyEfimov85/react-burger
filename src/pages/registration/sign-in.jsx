@@ -63,7 +63,6 @@ export default function SignIn() {
           type="primary"
           size="medium"
           extraClass="mb-20"
-          onClick={signIn}
         >
           Войти
         </Button>

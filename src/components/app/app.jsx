@@ -14,7 +14,8 @@ import Profile from "../../pages/profile/profile";
 import { OnlyAuth, OnlyUnAuth } from "./protected-route";
 import  Modal  from '../../components/app/modal';
 import { NotFound404 } from '../../pages/NotFound404';
-import { getIngredientsAction } from '../../services/actions/burger-ingredient'
+import { getIngredientsAction } from '../../services/actions/burger-ingredient';
+import { refreshUserValueAction } from '../../services/actions/refresh-user';
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 
@@ -22,6 +23,8 @@ export default function App() {
   const dispatch = useDispatch();
   useEffect(()=>{
     dispatch(getIngredientsAction())
+    dispatch(refreshUserValueAction())
+
   }, [dispatch])
   const location = useLocation();
   const navigate = useNavigate();
