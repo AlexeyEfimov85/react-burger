@@ -34,9 +34,9 @@ export const userSocketMiddleware = (wsActions) => {
                     const parsedData = JSON.parse(data);
 
                     dispatch({ type: onMessage, payload: parsedData });
-                    if (!parsedData.message) {
+/*                     if (!parsedData.message) {
                         
-                    }
+                    } */
                 };
 
                 socket.onclose = () => {
