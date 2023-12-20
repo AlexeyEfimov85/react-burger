@@ -12,20 +12,25 @@ import ForgotPassword from "../../pages/registration/forgot-password";
 import ResetPassword from "../../pages/registration/reset-password";
 import Profile from "../../pages/profile/profile";
 import { OnlyAuth, OnlyUnAuth } from "./protected-route";
-import  Modal  from '../../components/app/modal';
-import { NotFound404 } from '../../pages/NotFound404';
-import { getIngredientsAction } from '../../services/actions/burger-ingredient';
-import { refreshUserValueAction } from '../../services/actions/refresh-user';
+import Modal from "../../components/app/modal";
+import { NotFound404 } from "../../pages/NotFound404";
+import Feed from "../../pages/feed/feed";
+import FeedOrderDetails from "../../pages/feed/feed-order-details";
+import { getIngredientsAction } from "../../services/actions/burger-ingredient";
+import { refreshUserValueAction } from "../../services/actions/refresh-user";
+import { connect } from "../../services/orders-all/actions";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 
+const ALL_ORDER_FEED_URL = "wss://norma.nomoreparties.space/orders/all";
+
 export default function App() {
   const dispatch = useDispatch();
-  useEffect(()=>{
-    dispatch(getIngredientsAction())
-    dispatch(refreshUserValueAction())
-
-  }, [dispatch])
+  useEffect(() => {
+    dispatch(getIngredientsAction());
+    dispatch(refreshUserValueAction());
+    dispatch(connect(ALL_ORDER_FEED_URL));
+  }, [dispatch]);
   const location = useLocation();
   const navigate = useNavigate();
   const background = location.state && location.state.background;
@@ -38,10 +43,7 @@ export default function App() {
       <Header />
       <Routes location={background || location}>
         <Route path="/" element={<Main />} />
-        <Route
-          path="/login"
-          element={<OnlyUnAuth component={<SignIn />} />}
-        />
+        <Route path="/login" element={<OnlyUnAuth component={<SignIn />} />} />
         <Route
           path="/register"
           element={<OnlyUnAuth component={<Register />} />}
@@ -54,13 +56,15 @@ export default function App() {
           path="/reset-password"
           element={<OnlyUnAuth component={<ResetPassword />} />}
         />
+        <Route path="/profile" element={<OnlyAuth component={<Profile />} />} />
         <Route
-          path="/profile"
-          element={<OnlyAuth component={<Profile />} />}
+          path="/ingredients/:ingredientId"
+          element={<IngredientDetails />}
         />
-      <Route path='/ingredients/:ingredientId'
-               element={<IngredientDetails />} /> 
-      <Route path="*" element={<NotFound404 />} />
+        <Route path="*" element={<NotFound404 />} />
+        <Route path="/feed" element={<Feed />} />
+        <Route path="/feed/:orderNumber" element={<FeedOrderDetails />} />
+        <Route path="/profile/orders" element={<OnlyAuth component={<Profile />} />} />
       </Routes>
       {background && (
         <Routes>
@@ -69,6 +73,14 @@ export default function App() {
             element={
               <Modal onClose={handleModalClose}>
                 <IngredientDetails />
+              </Modal>
+            }
+          />
+          <Route
+            path="/feed/:orderNumber"
+            element={
+              <Modal onClose={handleModalClose}>
+                <FeedOrderDetails />
               </Modal>
             }
           />

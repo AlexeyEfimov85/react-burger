@@ -12,6 +12,9 @@ import { setNewPasswordReducer } from './reset-password'; // п.2 ПР
 import { registerNewUserReducer } from './user-register'; // п.4 ПР
 import { signInReducer } from './auth'; // п.4 ПР
 import { logoutReducer } from './logout'; // п.4 ПР
+import { allOrdersReducer } from '../orders-all/reducer'; // лента всех заказов
+import { getOrderFromServerByNumberReducer } from './get-order-by-number';
+import { userOrdersReducer } from '../orders-user/reducer'; // лента заказа пользователя
 
 export const rootReducer = combineReducers({
     getIngredientsReducer,
@@ -26,5 +29,8 @@ export const rootReducer = combineReducers({
     setNewPasswordReducer,
     registerNewUserReducer,
     signInReducer,
-    logoutReducer
+    logoutReducer,
+    allOrdersReducer,
+    getOrderFromServerByNumberReducer,
+    userOrdersReducer,
 })
