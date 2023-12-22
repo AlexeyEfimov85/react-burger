@@ -7,3 +7,10 @@
 .wrapper li {
     width: 844px;
 }
+
+.link:active, /* активная/посещенная ссылка */
+.link:hover,  /* при наведении */
+.link {
+  text-decoration: none;
+  color: inherit;
+}

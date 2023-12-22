@@ -13,3 +13,10 @@
     margin: 0 auto;
     width: 1280px;
 }
+
+.link:active, /* активная/посещенная ссылка */
+.link:hover,  /* при наведении */
+.link {
+  text-decoration: none;
+  color: inherit;
+}

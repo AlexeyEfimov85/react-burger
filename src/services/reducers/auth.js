@@ -30,7 +30,7 @@ export const signInReducer = (state = initialState, action) => {
                 user: action.user,
                 accessToken: action.accessToken,
                 refreshToken: action.refreshToken,
-                isAuthChecked: action.isAuthChecked
+                isAuthChecked: true
             }
         }
         case SIGN_IN_FAILED: {
@@ -38,6 +38,7 @@ export const signInReducer = (state = initialState, action) => {
                 ...state,
                 signInRequest: false,
                 signInFailed: true,
+                isAuthChecked: true
             }
         }
         case REFRESH_USER: {
@@ -56,7 +57,7 @@ export const signInReducer = (state = initialState, action) => {
                 user: action.user,
                 accessToken: action.accessToken,
                 refreshToken: action.refreshToken,
-                isAuthChecked: action.isAuthChecked
+                isAuthChecked: true
             }
         }
         case REFRESH_USER_FAILED: {
@@ -64,6 +65,7 @@ export const signInReducer = (state = initialState, action) => {
                 ...state,
                 signInRequest: false,
                 signInFailed: true,
+                isAuthChecked: true
             }
         }
         case CHANGE_USER: {

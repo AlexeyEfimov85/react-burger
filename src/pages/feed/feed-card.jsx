@@ -1,5 +1,4 @@
 import styles from "../feed/feed-card.module.css";
-import { Link, useLocation } from "react-router-dom";
 import {
   FormattedDate,
   CurrencyIcon,
@@ -8,8 +7,6 @@ import { useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 
 export default function FeedCard({ order }) {
-  const location = useLocation();
-  const orderNumber = order["number"];
   const orderIngredientsIds = order.ingredients;
   const ingredients = useSelector(
     (store) => store.getIngredientsReducer.ingredients
@@ -28,12 +25,7 @@ export default function FeedCard({ order }) {
   });
 
   return (
-    <Link
-      to={`/feed/${orderNumber}`}
-      className={styles.link}
-      state={{ background: location }} // заполняем background - если он заполнен, то компонент открывается в модалке, это реализовано в отдельном роуте в App
-    >
-      <li className={`${styles.card} pl-6 pr-6 pb-6 pt-6`}>
+      <li className={`${styles.card} pl-6 pr-6 pb-6 pt-6`} >
         <div className={`${styles.cardHeader} mb-6`}>
           <p className={`${styles.orderNumber} text text_type_main-medium`}>
             #{order.number}
@@ -58,7 +50,6 @@ export default function FeedCard({ order }) {
           </div>
         </div>
       </li>
-    </Link>
   );
 }
 

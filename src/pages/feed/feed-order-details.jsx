@@ -4,18 +4,24 @@ import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import { getOrderFromServerByNumber } from "../../services/actions/get-order-by-number";
 import { FormattedDate, CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
+import { connect } from "../../services/orders-all/actions";
 
-export default function FeedOrderDetails() {
+const ALL_ORDER_FEED_URL = "wss://norma.nomoreparties.space/orders/all";
+
+export default function FeedOrderDetails({orders}) {
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(connect(ALL_ORDER_FEED_URL));
+  }, [])
   // с помощью хука useParams определяем номер заказа (взяв конец URL)
   // даллее берем из хранилища все заказы и находим нужный по номеру
   // если такого заказа нет то отсылаем action c номером заказа в URL на соответсвующий эндпоинт
-  const orders = useSelector((store) => store.allOrdersReducer.orders);
+  //const orders = useSelector((store) => store.allOrdersReducer.orders);
   const orderFromServerByNumber = useSelector(
     (store) => store.getOrderFromServerByNumberReducer.orders
   );
   const orderNumber = useParams().orderNumber;
   const [selectedOrder, setSelectedOrder] = useState(null);
-  const dispatch = useDispatch();
 
   useEffect(() => {
     setSelectedOrder(
@@ -30,7 +36,8 @@ export default function FeedOrderDetails() {
       dispatch(getOrderFromServerByNumber(orderNumber));
       setSelectedOrder(orderFromServerByNumber);
     }
-  }, [selectedOrder, orders]);
+    
+  }, [selectedOrder, orders, orderNumber]);
 
   return selectedOrder ? (
     <div className={styles.wrapper}>

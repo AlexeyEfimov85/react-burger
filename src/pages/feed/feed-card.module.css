@@ -10,13 +10,6 @@
 
 }
 
-.link:active, /* активная/посещенная ссылка */
-.link:hover,  /* при наведении */
-.link {
-  text-decoration: none;
-  color: inherit;
-}
-
 .cardImage {
     border: 2px solid #801ab2;
     border-radius: 50%;

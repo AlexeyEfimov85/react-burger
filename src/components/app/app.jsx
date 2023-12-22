@@ -18,20 +18,61 @@ import Feed from "../../pages/feed/feed";
 import FeedOrderDetails from "../../pages/feed/feed-order-details";
 import { getIngredientsAction } from "../../services/actions/burger-ingredient";
 import { refreshUserValueAction } from "../../services/actions/refresh-user";
-import { connect } from "../../services/orders-all/actions";
+import { connect, disconnect } from "../../services/orders-all/actions";
+import {
+  connectUserOrders,
+  disconnectUserOrders,
+} from "../../services/orders-user/actions";
 import { useEffect } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 const ALL_ORDER_FEED_URL = "wss://norma.nomoreparties.space/orders/all";
+const USER_ORDER_URL = "wss://norma.nomoreparties.space/orders";
 
 export default function App() {
+  const allOrders = useSelector((store) => store.allOrdersReducer.orders);
+  const allOrdersStatus = useSelector((store) => store.allOrdersReducer.status);
+  const userOrders = useSelector((store) => store.userOrdersReducer.orders);
+  const userOrdersStatus = useSelector(
+    (store) => store.userOrdersReducer.status
+  );
   const dispatch = useDispatch();
+  const location = useLocation();
+  const token = localStorage.getItem("accessToken");
+  let allOrdersWs = false;
+  if (location.pathname.includes("feed")) {
+    allOrdersWs = true;
+  }
+  let tokenWithoutBearer = null;
+  if (location.pathname.includes("profile/orders")) {
+    tokenWithoutBearer = token.slice(7, token.length);
+  }
+
+  const URL = `${USER_ORDER_URL}?token=${tokenWithoutBearer}`;
+
+  let userOrdersWs = false;
+  if (location.pathname.includes("profile/orders")) {
+    userOrdersWs = true;
+  }
+
   useEffect(() => {
     dispatch(getIngredientsAction());
     dispatch(refreshUserValueAction());
-    dispatch(connect(ALL_ORDER_FEED_URL));
-  }, [dispatch]);
-  const location = useLocation();
+
+    if (allOrdersWs) {
+      dispatch(connect(ALL_ORDER_FEED_URL));
+    }
+    if (!allOrdersWs && allOrdersStatus === "ONLINE") {
+      dispatch(disconnect());
+    }
+    if (userOrdersWs) {
+      dispatch(connectUserOrders(URL));
+    }
+    if (!userOrdersWs && userOrdersStatus === "ONLINE") {
+      dispatch(disconnectUserOrders());
+    }
+  }, [dispatch, allOrdersWs, userOrdersWs]);
+
   const navigate = useNavigate();
   const background = location.state && location.state.background;
   const handleModalClose = () => {
@@ -63,8 +104,20 @@ export default function App() {
         />
         <Route path="*" element={<NotFound404 />} />
         <Route path="/feed" element={<Feed />} />
-        <Route path="/feed/:orderNumber" element={<FeedOrderDetails />} />
-        <Route path="/profile/orders" element={<OnlyAuth component={<Profile />} />} />
+        <Route
+          path="/feed/:orderNumber"
+          element={<FeedOrderDetails orders={allOrders} />}
+        />
+        <Route
+          path="/profile/orders/:orderNumber"
+          element={
+            <OnlyAuth component={<FeedOrderDetails orders={userOrders} />} />
+          }
+        />
+        <Route
+          path="/profile/orders"
+          element={<OnlyAuth component={<Profile />} />}
+        />
       </Routes>
       {background && (
         <Routes>
@@ -80,8 +133,20 @@ export default function App() {
             path="/feed/:orderNumber"
             element={
               <Modal onClose={handleModalClose}>
-                <FeedOrderDetails />
+                <FeedOrderDetails orders={allOrders} />
               </Modal>
+            }
+          />
+          <Route
+            path="/profile/orders/:orderNumber"
+            element={
+              <OnlyAuth
+                component={
+                  <Modal onClose={handleModalClose}>
+                    <FeedOrderDetails orders={userOrders} />
+                  </Modal>
+                }
+              />
             }
           />
         </Routes>

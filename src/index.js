@@ -9,7 +9,7 @@ import { Provider } from "react-redux";
 import { rootReducer } from "./services/reducers/index";
 import { BrowserRouter } from "react-router-dom";
 import { socketMiddleware } from "./services/middleware/socket-middleware";
-import { userSocketMiddleware } from "./services/middleware/user-socket-middleware";
+
 import {
   ALL_ORDER_CONNECT,
   ALL_ORDER_DISCONNECT,
@@ -44,7 +44,7 @@ const allOrdersMiddleware = socketMiddleware({
   wsDisconnect : ALL_ORDER_DISCONNECT,
 });
 
-const userOrdersMiddleware = userSocketMiddleware({
+const userOrdersMiddleware = socketMiddleware({
   wsConnect: USER_ORDER_CONNECT,
   onOpen : USER_ORDERS_WS_OPEN,
   onClose : USER_ORDERS_WS_CLOSE,

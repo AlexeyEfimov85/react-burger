@@ -12,21 +12,13 @@ import { logoutAction } from "../../services/actions/logout";
 import { SIGN_IN_SUCCESS } from "../../services/actions/auth";
 import {  refreshUserValueAction } from "../../services/actions/refresh-user";
 import { changeUserValueAction } from "../../services/actions/change-user-value";
-import { connectUserOrders } from "../../services/orders-user/actions";
 import UserOrders from "./orders";
-
-const USER_ORDER_URL = "wss://norma.nomoreparties.space/orders"
 
 export default function Profile() {
   const location = useLocation();
-  console.log(location.pathname)
   const dispatch = useDispatch();
-  const token = localStorage.getItem('accessToken')
-  const tokenWithoutBearer = token.slice(7,token.length)
-  const URL = `${USER_ORDER_URL}?token=${tokenWithoutBearer}`;
   useEffect(() => {
     dispatch(refreshUserValueAction());
-    dispatch(connectUserOrders(URL))
   }, [])
    // выход из профиля: отсылаем асинхронный экшн, очищаем данные пользователя в хранилище
   const signOut = () => {
