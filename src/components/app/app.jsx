@@ -44,7 +44,7 @@ export default function App() {
     allOrdersWs = true;
   }
   let tokenWithoutBearer = null;
-  if (location.pathname.includes("profile/orders")) {
+  if (localStorage.getItem ("accessToken")) {
     tokenWithoutBearer = token.slice(7, token.length);
   }
 
