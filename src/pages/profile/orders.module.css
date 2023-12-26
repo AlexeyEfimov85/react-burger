@@ -1,0 +1,16 @@
+.wrapper {
+    margin-top: -80px;
+    max-height: 65vh;
+    overflow-y: scroll;
+}
+
+.wrapper li {
+    width: 844px;
+}
+
+.link:active, /* активная/посещенная ссылка */
+.link:hover,  /* при наведении */
+.link {
+  text-decoration: none;
+  color: inherit;
+}

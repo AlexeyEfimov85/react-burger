@@ -24,28 +24,32 @@ NavListItem.propTypes = {
 function NavList() {
   return (
     <>
-      <NavLink to="/" className= {`${styles.listItemLink} text text_type_main-default text_color_inactive`} style={({ isActive }) => {
-              return {
-                color: isActive ? "white" : "",
-              };
-            }}>
+      <NavLink
+        to="/"
+        className={`${styles.listItemLink} text text_type_main-default text_color_inactive`}
+        style={({ isActive }) => {
+          return {
+            color: isActive ? "white" : "",
+          };
+        }}
+      >
         <NavListItem
           icon={<BurgerIcon type="primary" />}
           text={<p>Конструктор</p>}
         />
       </NavLink>
-      <NavLink to="/" className= {`${styles.listItemLink} text text_type_main-default text_color_inactive`} style={({ isActive }) => {
-              return {
-                color: isActive ? "white" : "",
-              };
-            }}>
+      <NavLink
+        to="/feed"
+        className={`${styles.listItemLink} text text_type_main-default text_color_inactive`}
+        style={({ isActive }) => {
+          return {
+            color: isActive ? "white" : "",
+          };
+        }}
+      >
         <NavListItem
           icon={<ListIcon type="secondary" />}
-          text={
-            <p>
-              Лента заказов
-            </p>
-          }
+          text={<p>Лента заказов</p>}
         />
       </NavLink>
     </>
@@ -65,24 +69,26 @@ export default function Header() {
     <header className={styles.header}>
       <div className={styles.headerWrapper}>
         <Nav />
-        <Link to='/'>
-        <div className={styles.logoContainer}>
-          <Logo />
-        </div>
+        <Link to="/">
+          <div className={styles.logoContainer}>
+            <div className={styles.logo}>
+              <Logo />
+            </div>
+          </div>
         </Link>
-        <NavLink to="/profile" className= {`${styles.listItemLink} text text_type_main-default text_color_inactive`} style={({ isActive }) => {
-              return {
-                color: isActive ? "white" : "",
-              };
-            }}
-            state={{ from: "/profile" }}>
+        <NavLink
+          to="/profile"
+          className={`${styles.listItemLink} text text_type_main-default text_color_inactive`}
+          style={({ isActive }) => {
+            return {
+              color: isActive ? "white" : "",
+            };
+          }}
+          state={{ from: "/profile" }}
+        >
           <NavListItem
             icon={<ProfileIcon type="secondary" />}
-            text={
-              <p>
-                Личный кабинет
-              </p>
-            }
+            text={<p>Личный кабинет</p>}
           />
         </NavLink>
       </div>

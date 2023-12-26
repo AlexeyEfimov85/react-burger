@@ -1,0 +1,22 @@
+.list {
+    max-height: 65vh;
+    overflow-y: scroll;
+}
+
+.componentsWrapper {
+    display: flex;
+    margin: 8px auto;
+    width: 1280px;
+}
+
+.heading {
+    margin: 0 auto;
+    width: 1280px;
+}
+
+.link:active, /* активная/посещенная ссылка */
+.link:hover,  /* при наведении */
+.link {
+  text-decoration: none;
+  color: inherit;
+}
