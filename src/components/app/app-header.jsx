@@ -6,20 +6,7 @@ import {
   ListIcon,
   ProfileIcon,
 } from "@ya.praktikum/react-developer-burger-ui-components";
-import PropTypes from "prop-types";
 import { NavLink } from "react-router-dom";
-function NavListItem(props) {
-  return (
-    <li className={styles.listItem}>
-      {props.icon}
-      {props.text}
-    </li>
-  );
-}
-
-NavListItem.propTypes = {
-  children: PropTypes.any,
-};
 
 function NavList() {
   return (
@@ -33,10 +20,12 @@ function NavList() {
           };
         }}
       >
-        <NavListItem
-          icon={<BurgerIcon type="primary" />}
-          text={<p>Конструктор</p>}
-        />
+        {({ isActive }) => (
+          <li className={styles.listItem}>
+            <BurgerIcon type={isActive ? "primary" : "secondary"} />
+            <p>Конструктор</p>
+          </li>
+        )}
       </NavLink>
       <NavLink
         to="/feed"
@@ -47,10 +36,12 @@ function NavList() {
           };
         }}
       >
-        <NavListItem
-          icon={<ListIcon type="secondary" />}
-          text={<p>Лента заказов</p>}
-        />
+        {({ isActive }) => (
+        <li className={styles.listItem}>
+          <ListIcon type={isActive ? "primary" : "secondary"} />
+          <p>Лента заказов</p>
+          </li>
+           )}
       </NavLink>
     </>
   );
@@ -86,10 +77,12 @@ export default function Header() {
           }}
           state={{ from: "/profile" }}
         >
-          <NavListItem
-            icon={<ProfileIcon type="secondary" />}
-            text={<p>Личный кабинет</p>}
-          />
+          {({ isActive }) => (
+        <li className={styles.listItem}>
+          <ProfileIcon type={isActive ? "primary" : "secondary"} />
+          <p>Личный кабинет</p>
+          </li>
+           )}
         </NavLink>
       </div>
     </header>

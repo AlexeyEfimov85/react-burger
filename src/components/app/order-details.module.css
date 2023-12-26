@@ -9,3 +9,10 @@
     width: 122px;
     height: 122px;
 }
+
+.countDown {
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    position: fixed;
+}

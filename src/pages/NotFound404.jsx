@@ -1,5 +1,7 @@
+import styles from './NotFound404.module.css';
+
 export function NotFound404(){
     return (
-        <p>Такой страницы нет на сайте</p>
+        <div className={styles.page}></div>
     )
 }

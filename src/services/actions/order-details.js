@@ -1,4 +1,5 @@
 import { baseUrl, request } from "../../utils/burger-api";
+import { refreshUserValueAction } from "./refresh-user";
 
 export const GET_ORDERDETAILS = "GET_ORDERDETAILS";
 export const GET_ORDERDETAILS_SUCCESS = "GET_ORDERDETAILS_SUCCESS";
@@ -24,6 +25,9 @@ export function getOrderDetailsAction(selectedIngredientsIds) {
           type: GET_ORDERDETAILS_SUCCESS,
           orderDetails: data.order.number,
         });
+        if(data.message === "jwt expired") {
+          refreshUserValueAction()
+        }
       })
       .catch((err) => {
         dispatch({
