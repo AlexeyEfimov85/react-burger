@@ -32,7 +32,7 @@ function CountDown() {
     useEffect(() => {
         let timeLeft = showTimeLeft
       const countdownTimer =  setInterval(function() {
-            setShowTimeLeft(timeLeft)
+            setShowTimeLeft(timeLeft--)
             if(timeLeft <= 0)
         clearInterval(countdownTimer)
         }, 1000);
