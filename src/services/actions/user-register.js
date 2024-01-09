@@ -1,4 +1,5 @@
 import { baseUrl, request } from "../../utils/burger-api";
+import { refreshUserValueAction } from "./refresh-user";
 
 export const REGISTER_NEW_USER = 'REGISTER_NEW_USER';
 export const REGISTER_NEW_USER_SUCCESS = 'REGISTER_NEW_USER_SUCCESS';
@@ -21,6 +22,8 @@ export function registerNewUserAction(userValue) {
             }),
           })
           .then((data) => {
+            localStorage.setItem("accessToken", data.accessToken)
+            localStorage.setItem("refreshToken", data.refreshToken)
             dispatch({
               type: REGISTER_NEW_USER_SUCCESS,
               success: data.success,
@@ -28,6 +31,10 @@ export function registerNewUserAction(userValue) {
               accessToken: data.accessToken,
               refreshToken: data.refreshToken
             });
+            
+          })
+          .then((data) => {
+            dispatch(refreshUserValueAction());
           })
           .catch((err) => {
             dispatch({
