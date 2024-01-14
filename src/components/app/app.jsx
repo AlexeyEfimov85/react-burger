@@ -84,6 +84,7 @@ export default function App() {
       <Header />
       <Routes location={background || location}>
         <Route path="/" element={<Main />} />
+        <Route path="/react-burger/" element={<Main />} />
         <Route path="/login" element={<OnlyUnAuth component={<SignIn />} />} />
         <Route
           path="/register"
