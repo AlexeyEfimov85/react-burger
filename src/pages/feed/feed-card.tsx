@@ -3,13 +3,11 @@ import {
   FormattedDate,
   CurrencyIcon,
 } from "@ya.praktikum/react-developer-burger-ui-components";
-import { useSelector as selectorHook, TypedUseSelectorHook } from "react-redux";
+import { useSelector } from "../../types/hooks";
 import { FC, useEffect, useState } from "react";
 import { Order,Ingredient } from "../../types/types";
-import { RootState} from "../..";
 
 const FeedCard: FC<Order> = ({ order }) => {
-  const useSelector: TypedUseSelectorHook<RootState> = selectorHook;
   const orderIngredientsIds = order.ingredients;
   const ingredients = useSelector(
     (store) => store.getIngredientsReducer.ingredients

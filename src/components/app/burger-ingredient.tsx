@@ -1,10 +1,10 @@
 import styles from "./burger-ingredient.module.css";
 import { FC, useEffect } from 'react';
-import { useDispatch } from "react-redux";
 import Tabs from './tabs';
 import Article from "./article";
 import ItemList from "./item-list";
 import { SET_CURRENT_TAB_ONE, SET_CURRENT_TAB_TWO, SET_CURRENT_TAB_THREE } from '../../services/actions/tab';
+import { useDispatch } from "../../types/hooks";
 
 const BurgerIngredients: FC = () => {
   const dispatch = useDispatch();

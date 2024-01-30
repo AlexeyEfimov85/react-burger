@@ -1,11 +1,10 @@
 import { useEffect, useState, FC } from "react";
 import styles from "./feed-orders.module.css";
-import { useSelector as selectorHook, TypedUseSelectorHook } from "react-redux";
-import { RootState} from "../..";
+import { useSelector } from "../../types/hooks";
+
 import { Order } from "../../types/types";
 
 const FeedOrders: FC = () => {
-  const useSelector: TypedUseSelectorHook<RootState> = selectorHook;
   const orders = useSelector((store) => store.allOrdersReducer);
   const [totalOrders, setTotalOrders] = useState(1);
   const [totalTodayOrders, setTotalTodayOrders] = useState(1);

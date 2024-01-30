@@ -1,10 +1,8 @@
 import { useLocation, Navigate} from "react-router-dom";
 import { protection } from "../../types/types";
-import { useSelector as selectorHook, TypedUseSelectorHook } from "react-redux";
-import { RootState } from "../..";
+import { useSelector } from "../../types/hooks";
 
 const Protected = ({ onlyUnAuth = false, component }: protection) => {
-  const useSelector: TypedUseSelectorHook<RootState> = selectorHook;
   const user = useSelector((store) => store.signInReducer.user);
   const isAuthChecked = useSelector((store) => store.signInReducer.isAuthChecked);
   const location = useLocation();

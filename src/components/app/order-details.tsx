@@ -1,10 +1,8 @@
 import { FC, useEffect, useState } from "react";
 import styles from "./order-details.module.css";
-import { useSelector as selectorHook, TypedUseSelectorHook } from "react-redux";
-import { RootState } from "../..";
+import { useSelector } from "../../types/hooks";
 
 export const OrderDetails: FC = () => {
-  const useSelector: TypedUseSelectorHook<RootState> = selectorHook;
   const orderNumber = useSelector(
     (store) => store.getOrderDetailsReducer.orderDetails
   );

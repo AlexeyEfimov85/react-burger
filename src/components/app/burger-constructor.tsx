@@ -1,5 +1,4 @@
 import React, { FC, PropsWithChildren  } from "react";
-import { useSelector as selectorHook, TypedUseSelectorHook, useDispatch } from "react-redux";
 import styles from "./burger-constructor.module.css";
 import {
   ConstructorElement,
@@ -23,11 +22,10 @@ import { GET_ORDERDETAILS_SUCCESS } from "../../services/actions/order-details";
 import { v4 as uuidv4 } from "uuid";
 import { useNavigate } from "react-router-dom";
 import { ListItem } from "../../types/types";
-import { RootState } from "../..";
+import { useSelector, useDispatch } from "../../types/hooks";
 
 
 const BurgerConstructor: FC = () => {
-  const useSelector: TypedUseSelectorHook<RootState> = selectorHook;
   const dispatch = useDispatch();
   const isOpen = useSelector((store) => store.setIsOpenReducer.isOpen);
   const data = useSelector((store) => store.setIngredientCounterReducer.cart);

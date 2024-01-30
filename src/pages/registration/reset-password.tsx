@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch } from "../../types/hooks";
 import { useNavigate, Link } from "react-router-dom";
 import {
   Input,

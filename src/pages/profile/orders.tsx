@@ -1,11 +1,9 @@
 import styles from "./orders.module.css";
-import { useSelector as selectorHook, TypedUseSelectorHook } from "react-redux"; 
+import { useSelector } from "../../types/hooks";
 import FeedCard from "../feed/feed-card";
 import { Link, useLocation } from "react-router-dom";
-import { RootState } from "../..";
 
 export default function UserOrders() {
-  const useSelector: TypedUseSelectorHook<RootState> = selectorHook;
   const location = useLocation();
   const orders = useSelector((store) => store.userOrdersReducer.orders);
   return (

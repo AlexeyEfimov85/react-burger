@@ -4,7 +4,7 @@ import "./index.css";
 import App from "./components/app/app";
 import reportWebVitals from "./reportWebVitals";
 import { createStore, applyMiddleware, compose } from "redux";
-import thunk from "redux-thunk";
+import thunk, { ThunkDispatch } from "redux-thunk";
 import { Provider } from "react-redux";
 import { rootReducer } from "./services/reducers/index";
 import { BrowserRouter } from "react-router-dom";
@@ -70,7 +70,9 @@ const middleware = applyMiddleware(
 const store = createStore(rootReducer, compose(middleware, enhancer));
 
 export type RootState = ReturnType<typeof store.getState>;
-export type AppDispatch = typeof store.dispatch;
+/* export type AppDispatch = typeof store.dispatch; */
+type AppAction = ReturnType<typeof store.dispatch>;
+export type AppDispatch = ThunkDispatch<RootState, any, AppAction>;
 
 ReactDOM.render(
   <React.StrictMode>

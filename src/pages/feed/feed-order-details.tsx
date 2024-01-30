@@ -1,17 +1,15 @@
 import styles from "./feed-order-details.module.css";
 import { useParams } from "react-router-dom";
-import { useSelector as selectorHook, TypedUseSelectorHook, useDispatch } from "react-redux";
+import { useSelector, useDispatch } from "../../types/hooks";
 import { useEffect, useState } from "react";
 import { getOrderFromServerByNumber } from "../../services/actions/get-order-by-number";
 import { FormattedDate, CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import { connect } from "../../services/orders-all/actions";
-import { RootState } from "../..";
 import { Order, TOrderContent, SelectedOrder, Ingredient } from "../../types/types";
 const ALL_ORDER_FEED_URL = "wss://norma.nomoreparties.space/orders/all";
 
 
 const FeedOrderDetails = ({orders}: any) => {
-  const useSelector: TypedUseSelectorHook<RootState> = selectorHook;
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(connect(ALL_ORDER_FEED_URL));
@@ -72,7 +70,6 @@ const FeedOrderDetails = ({orders}: any) => {
 }
 
 export function OrderContent({ orderIngredientsIds, date } : TOrderContent) {
-  const useSelector: TypedUseSelectorHook<RootState> = selectorHook;
   // чтобы отобразить каждый ингредиент один раз получим массив уникальных ID
   const uniqeOrderIngredientsIds = orderIngredientsIds.filter(function (
     orderIngredientId,

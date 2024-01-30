@@ -1,11 +1,9 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useState, useRef, useEffect } from "react";
-import { useDispatch, useSelector as selectorHook, TypedUseSelectorHook } from "react-redux";
-import { RootState} from "../..";
+import { useSelector, useDispatch } from "../../types/hooks";
 import { NavLink, useLocation } from "react-router-dom";
 import {
   Input,
-  EmailInput,
   Button,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from "./profile.module.css";
@@ -80,7 +78,6 @@ export default function Profile() {
 }
 
 export function ProfileForm() {
-  const useSelector: TypedUseSelectorHook<RootState> = selectorHook;
   const user: any = useSelector(store => store.signInReducer.user)
   const dispatch = useDispatch();
   const [buttonsShowValue, setButtonsShowValue] = useState(false); // для отображения кнопок сохранить && отмена

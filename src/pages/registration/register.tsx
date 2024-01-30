@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { useState, useRef } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch } from "../../types/hooks";
 import {
   EmailInput,
   Button,

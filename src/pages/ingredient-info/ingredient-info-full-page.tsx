@@ -1,13 +1,11 @@
 import styles from "./ingredient-info-full-page.module.css";
-import { SetStateAction, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { useSelector as selectorHook, TypedUseSelectorHook } from "react-redux";
-import { RootState } from "../..";
+import { useSelector } from "../../types/hooks";
 import { Ingredient } from "../../types/types";
 
 
 export function IngredientDetails() {
-  const useSelector: TypedUseSelectorHook<RootState> = selectorHook;
   const [currentIngredient, setCurrentIngredient] = useState<Ingredient>();
   const { ingredientId } = useParams();
   const ingredients = useSelector(store => store.getIngredientsReducer.ingredients)

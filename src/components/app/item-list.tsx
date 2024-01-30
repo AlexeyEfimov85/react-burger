@@ -3,14 +3,12 @@ import {
   CurrencyIcon,
   Counter,
 } from "@ya.praktikum/react-developer-burger-ui-components";
-import { useSelector as selectorHook, TypedUseSelectorHook, } from "react-redux";
+import { useSelector } from "../../types/hooks";
 import { useDrag } from "react-dnd";
 import { useLocation, Link } from "react-router-dom";
 import { ListItem } from "../../types/types";
-import { RootState } from "../..";
 
 const ItemList = (props: any) => {
-  const useSelector: TypedUseSelectorHook<RootState> = selectorHook;
   const data = useSelector((store) => store.getIngredientsReducer.ingredients);
   const arr = data.filter((element: ListItem) => element.type === props.type);
   return (
@@ -23,7 +21,6 @@ const ItemList = (props: any) => {
 }
 
 const Item = ({ listItem }: any) => {
-  const useSelector: TypedUseSelectorHook<RootState> = selectorHook;
   const location = useLocation();
   const ingredientId = listItem['_id'];
   const count = useSelector(store => store.setIngredientCounterReducer.cart).map((item: ListItem) => {

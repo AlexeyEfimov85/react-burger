@@ -1,13 +1,11 @@
 import styles from "./feed.module.css";
 import { Link, useLocation } from "react-router-dom";
-import { useSelector as selectorHook, TypedUseSelectorHook } from "react-redux";
-import { RootState} from "../..";
+import { useSelector } from "../../types/hooks";
 import FeedCard from "./feed-card";
 import FeedOrders from "./feed-orders";
 
 
 export default function Feed() {
-  const useSelector: TypedUseSelectorHook<RootState> = selectorHook;
   const location = useLocation();
   const orders = useSelector((store) => store.allOrdersReducer.orders);
   return (

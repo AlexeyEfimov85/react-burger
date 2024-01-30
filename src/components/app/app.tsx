@@ -24,14 +24,13 @@ import {
   disconnectUserOrders,
 } from "../../services/orders-user/actions";
 import { useEffect, FC, MouseEvent } from "react";
-import { useDispatch, useSelector as selectorHook, TypedUseSelectorHook } from "react-redux";
-import { RootState} from "../..";
+import { useSelector, useDispatch } from "../../types/hooks";
+
 
 const ALL_ORDER_FEED_URL = "wss://norma.nomoreparties.space/orders/all";
 const USER_ORDER_URL = "wss://norma.nomoreparties.space/orders";
 
-const App:FC = () => {
-  const useSelector: TypedUseSelectorHook<RootState> = selectorHook;
+const App: FC = () => {
   const allOrders = useSelector((store) => store.allOrdersReducer.orders);
   const allOrdersStatus = useSelector((store) => store.allOrdersReducer.status);
   const userOrders = useSelector((store) => store.userOrdersReducer.orders);
@@ -46,7 +45,7 @@ const App:FC = () => {
     allOrdersWs = true;
   }
   let tokenWithoutBearer = null;
-  if (localStorage.getItem ("accessToken")) {
+  if (localStorage.getItem("accessToken")) {
     tokenWithoutBearer = token.slice(7, token.length);
   }
 
@@ -158,7 +157,7 @@ const App:FC = () => {
   );
 }
 
-const Main:FC = () => {
+const Main: FC = () => {
   return (
     <main className={styles.main}>
       <DndProvider backend={HTML5Backend}>
