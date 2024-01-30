@@ -5,7 +5,7 @@ export const GET_ORDER_FROM_SERVER_BY_NUMBER_SUCCESS = 'GET_ORDER_FROM_SERVER_BY
 export const GET_ORDER_FROM_SERVER_BY_NUMBER_FAILED = 'GET_ORDER_FROM_SERVER_BY_NUMBER_FAILED';
 
 export function getOrderFromServerByNumber(number: number){
-    return function (dispatch: (arg0: { type: string; success?: any; orders?: any; }) => void) {
+    return function (dispatch: (arg0: { type: string; success?: string; orders?: []; }) => void) {
         dispatch({
           type: GET_ORDER_FROM_SERVER_BY_NUMBER,
         });

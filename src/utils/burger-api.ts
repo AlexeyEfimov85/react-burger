@@ -1,5 +1,18 @@
+
+type T = {
+  type: string;
+  success: string;
+  accessToken: string;
+  refreshToken: string;
+  user: object;
+  isAuthChecked: string;
+  data: [];
+  orders: [];
+  message: string;
+  order: any;
+}
 export const baseUrl: string = "https://norma.nomoreparties.space/api";
-export const checkResponse = (res: { ok: any; json: () => any; status: any; }) => {
+export const checkResponse = (res: { ok: any; json: () => Promise<T>; status: any; }) => {
   if (res.ok) {
     return res.json();
   }
@@ -10,7 +23,7 @@ export function request(url: string, options?: object) {
   // принимает два аргумента: урл и объект опций, как и `fetch`
   return fetch(url, options).then(checkResponse);
 }
-const checkReponse = (res: Response) => {
+const checkReponse = (res: { ok: any; json: () => Promise<T>; status: any; }) => {
   return res.ok ? res.json() : res.json().then((err) => Promise.reject(err));
 };
 

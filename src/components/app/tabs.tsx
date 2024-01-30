@@ -9,7 +9,7 @@ const Tabs: FC = () => {
   const current = useSelector(store => store.setCurrentTabReducer.currentTab)
   return (
     <div className={styles.tabWrapper}>
-      <Tab value="one" active={current === "one"} >
+      <Tab value="one" active={current === "one"}>
         Булки
       </Tab>
       <Tab value="two" active={current === "two"} >

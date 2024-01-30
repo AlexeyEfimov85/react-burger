@@ -12,7 +12,7 @@ type UserValue = {
 }
 
 export function changeUserValueAction(userValue: UserValue) {
-    return function (dispatch: (arg0: { type: string; success?: any; user?: any; isAuthChecked?: boolean; }) => void) {
+    return function (dispatch: (arg0: { type: string; success?: string; user?: object; isAuthChecked?: boolean; }) => void) {
       dispatch({
         type: CHANGE_USER,
       });
