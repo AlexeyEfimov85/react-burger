@@ -1,7 +1,7 @@
 import { refreshUserValueAction } from "../actions/refresh-user";
 
-export const socketMiddleware = (wsActions: { wsConnect: any; onOpen: any; onClose: any; onError: any; onMessage: any; wsConnecting: any; wsDisconnect: any; }) => {
-  return (store: { dispatch: any; }) => {
+export const socketMiddleware = (wsActions: { wsConnect: string; onOpen: string; onClose: string; onError: string; onMessage: string; wsConnecting: string; wsDisconnect: string; }) => {
+  return (store: { dispatch: any }) => {
     let socket: WebSocket | null = null;
 
     return (next: (arg0: any) => void) => (action: { payload?: any; type?: any; }) => {

@@ -9,7 +9,7 @@ import {
 
 
   export function refreshUserValueAction() {
-    return function (dispatch: (arg0: { type: string; success?: any; accessToken?: string; refreshToken?: string; user?: any; isAuthChecked?: boolean; }) => void) {
+    return function (dispatch: (arg0: { type: string; success?: string; accessToken?: string; refreshToken?: string;  user?: {email: string; name: string}; isAuthChecked?: boolean; }) => void) {
       dispatch({
         type: REFRESH_USER,
       });

@@ -5,7 +5,7 @@ export const LOGOUT_SUCCESS = 'LOGOUT_SUCCESS';
 export const LOGOUT_FAILED = 'LOGOUT_FAILED';
 
 export function logoutAction() {
-    return function(dispatch: (arg0: { type: string; success?: any; message?: string; }) => void) {
+    return function(dispatch: (arg0: { type: string; success?: string; message?: string; }) => void) {
         dispatch({
             type: LOGOUT
         })

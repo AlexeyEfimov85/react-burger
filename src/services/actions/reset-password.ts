@@ -9,7 +9,7 @@ type Value = {
 }
 
 export function setNewPasswordAction(value: Value) {
-    return function(dispatch: (arg0: { type: string; success?: any; message?: any; }) => void) {
+    return function(dispatch: (arg0: { type: string; success?: string; message?: string; }) => void) {
         dispatch({
             type: SET_NEW_PASSWORD
         })

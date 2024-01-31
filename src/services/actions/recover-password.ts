@@ -4,7 +4,7 @@ export const RECOVER_PASSWORD = 'RECOVER_PASSWORD';
 export const RECOVER_PASSWORD_SUCCESS = 'RECOVER_PASSWORD_SUCCESS';
 export const RECOVER_PASSWORD_FAILED = 'RECOVER_PASSWORD_FAILED';
 export function recoverPasswordAction(email: string) {
-    return function(dispatch: (arg0: { type: string; success?: any; message?: any; }) => void) {
+    return function(dispatch: (arg0: { type: string; success?: string; message?: string; }) => void) {
         dispatch({
             type: RECOVER_PASSWORD
         })
