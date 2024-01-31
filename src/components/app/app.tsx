@@ -39,13 +39,13 @@ const App: FC = () => {
   );
   const dispatch = useDispatch();
   const location = useLocation();
-  const token: any = localStorage.getItem("accessToken");
+  const token: string | null = localStorage.getItem("accessToken");
   let allOrdersWs = false;
   if (location.pathname.includes("feed")) {
     allOrdersWs = true;
   }
   let tokenWithoutBearer = null;
-  if (localStorage.getItem("accessToken")) {
+  if (token) {
     tokenWithoutBearer = token.slice(7, token.length);
   }
 
@@ -76,7 +76,7 @@ const App: FC = () => {
 
   const navigate = useNavigate();
   const background = location.state && location.state.background;
-  const handleModalClose = (e: MouseEvent<HTMLButtonElement>) => {
+  const handleModalClose = (): void => {
     // Возвращаемся к предыдущему пути при закрытии модалки
     navigate(-1);
   };

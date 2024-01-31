@@ -171,14 +171,14 @@ type CartItems = {
   listItem: ListItem;
   allIngredientsInCart: object[];
   index: number;
-  moveCard: any;
+  moveCard: (arg0: number, arg1: number) => void;
 }
 
 const CartItem:FC<PropsWithChildren<CartItems>> = ({ listItem, allIngredientsInCart, index, moveCard }) => {
   const ref = React.useRef<HTMLInputElement>(null);
   const [, drop] = useDrop({
     accept: "ing",
-    hover(item: any, monitor) {
+    hover(item: ListItem, monitor) {
       if (!ref.current) {
         return;
       }

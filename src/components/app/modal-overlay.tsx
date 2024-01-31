@@ -1,5 +1,10 @@
 import styles from './modal-overlay.module.css';
-const ModalOverlay = (props: any) => {
+
+type ModalProps = {
+    onClick: () => void;
+}
+
+const ModalOverlay = (props: ModalProps) => {
     return (
         <div onClick={props.onClick} className={styles.popup}></div>
     )

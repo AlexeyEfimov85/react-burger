@@ -9,16 +9,18 @@ import { useDispatch } from "../../types/hooks";
 const BurgerIngredients: FC = () => {
   const dispatch = useDispatch();
   useEffect(() => {
-    const container: any = document.querySelector('.custom-scroll');
-    container.addEventListener('scroll', () => {
-      if (container.scrollTop <= 300) {
-        dispatch({ type: SET_CURRENT_TAB_ONE })
-      } else if (container.scrollTop > 300 && container.scrollTop <= 800) {
-        dispatch({ type: SET_CURRENT_TAB_TWO })
-      } else if (container.scrollTop > 800) {
-        dispatch({ type: SET_CURRENT_TAB_THREE })
-      }
-    })
+    const container: HTMLElement | null = document.querySelector('.custom-scroll');
+    if (container) {
+      container.addEventListener('scroll', () => {
+        if (container.scrollTop <= 300) {
+          dispatch({ type: SET_CURRENT_TAB_ONE })
+        } else if (container.scrollTop > 300 && container.scrollTop <= 800) {
+          dispatch({ type: SET_CURRENT_TAB_TWO })
+        } else if (container.scrollTop > 800) {
+          dispatch({ type: SET_CURRENT_TAB_THREE })
+        }
+      })
+    }
   }, [])
   return (
     <section className={styles.sectionBurgerIngredients}>

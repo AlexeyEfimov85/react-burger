@@ -6,6 +6,7 @@ export type ListItem = {
     children?: React.ReactNode;
     name: string;
     image: any;
+    index: number;
   }
 
   export type protection = {

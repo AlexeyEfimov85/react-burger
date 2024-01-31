@@ -6,21 +6,28 @@ import {
 import { useSelector } from "../../types/hooks";
 import { useDrag } from "react-dnd";
 import { useLocation, Link } from "react-router-dom";
-import { ListItem } from "../../types/types";
+import { ListItem, Ingredient } from "../../types/types";
 
-const ItemList = (props: any) => {
+type Props = {
+  type: string;
+}
+const ItemList = (props: Props) => {
   const data = useSelector((store) => store.getIngredientsReducer.ingredients);
   const arr = data.filter((element: ListItem) => element.type === props.type);
   return (
     <ul className={styles.list}>
-      {arr.map((listItem: ListItem) => (
+      {arr.map((listItem: Ingredient) => (
         <Item listItem={listItem} key={listItem._id} />
       ))}
     </ul>
   );
 }
 
-const Item = ({ listItem }: any) => {
+type ItemProps = {
+  listItem: Ingredient
+}
+
+const Item = ({ listItem }: ItemProps) => {
   const location = useLocation();
   const ingredientId = listItem['_id'];
   const count = useSelector(store => store.setIngredientCounterReducer.cart).map((item: ListItem) => {
