@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { useState, useRef } from "react";
+import { useState, useRef, FormEvent } from "react";
 import { useDispatch } from "../../types/hooks";
 import {
   EmailInput,
@@ -17,7 +17,7 @@ export default function SignIn() {
     login: "",
     password: "",
   });
-  const onClick = (e: any) => {
+  const onClick = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     dispatch(registerNewUserAction(userValue));
   };

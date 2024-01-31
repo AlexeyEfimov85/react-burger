@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { FormEvent, SetStateAction, useState } from "react";
 import { useDispatch } from "../../types/hooks";
 import { useNavigate, Link } from "react-router-dom";
 import {
@@ -11,11 +11,11 @@ import { recoverPasswordAction } from "../../services/actions/recover-password";
 export default function ForgotPassword() {
   const dispatch = useDispatch();
   const [value, setValue] = useState("bob@example.com");
-  const onChange = (e: any) => {
+  const onChange = (e: { target: { value: SetStateAction<string>; }; }) => {
     setValue(e.target.value);
   };
   const navigate = useNavigate();
-  const recoverPassword = (e: any) => {
+  const recoverPassword = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     dispatch(recoverPasswordAction(value));
     localStorage.setItem("flag", "flag"); //ставим флаг в локалсторэдж для экрана ввода проверочного кода

@@ -6,7 +6,10 @@ type InitialState = {
     signInRequest: boolean;
     signInFailed: boolean;
     success: string | undefined;
-    user: string | null;
+    user: {
+        email: string;
+        name: string;
+    } | null;
     accessToken: string | null;
     refreshToken: string | null;
     isAuthChecked: boolean;
@@ -16,14 +19,19 @@ const initialState: InitialState = {
     signInRequest: false,
     signInFailed: false,
     success: '',
-    user: null, 
+    user: null,
     accessToken: null,
     refreshToken: null,
     isAuthChecked: false
 }
 
-export const signInReducer = (state = initialState, action: { type: string; success: string; user: string; accessToken: string; refreshToken: string; }) => {
-    switch(action.type) {
+export const signInReducer = (state = initialState, action: {
+    type: string; success: string; user: {
+        email: string;
+        name: string;
+    }; accessToken: string; refreshToken: string;
+}) => {
+    switch (action.type) {
         case SIGN_IN: {
             return {
                 ...state,

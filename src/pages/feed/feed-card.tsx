@@ -53,8 +53,11 @@ const FeedCard: FC<Order> = ({ order }) => {
   );
 }
 
+type FeedCardIconsTypes = {
+  orderIngredients: Ingredient[];
+}
 
-export const FeedCardIcons = ({ orderIngredients }: any) => {
+export const FeedCardIcons = ({ orderIngredients }: FeedCardIconsTypes) => {
   const [overlay, setOverlay] = useState(false);
   const [overlayNumber, setOverlayNumber] = useState(0);
   useEffect(() => {

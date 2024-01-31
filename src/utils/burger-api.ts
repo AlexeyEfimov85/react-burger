@@ -4,7 +4,11 @@ type T = {
   success: string;
   accessToken: string;
   refreshToken: string;
-  user: object;
+  user: {
+    email: string;
+    name: string;
+    login?: string;
+  };
   isAuthChecked: string;
   data: [];
   orders: [];

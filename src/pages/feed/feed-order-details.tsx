@@ -5,12 +5,26 @@ import { useEffect, useState } from "react";
 import { getOrderFromServerByNumber } from "../../services/actions/get-order-by-number";
 import { FormattedDate, CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import { connect } from "../../services/orders-all/actions";
-import { Order, TOrderContent, SelectedOrder, Ingredient } from "../../types/types";
+import { TOrderContent, Ingredient } from "../../types/types";
 const ALL_ORDER_FEED_URL = "wss://norma.nomoreparties.space/orders/all";
 
+type Orderr = {
+  
+    createdAt: string;
+    ingredients: string[];
+    name: string;
+    number: number | string;
+    status: string;
+    updatedAt: string;
+    _id: string;
+  
+}
+type FeedOrderDetailsProps = {
+  orders: Orderr[];
+}
 
-const FeedOrderDetails = ({orders}: any) => {
-  const dispatch = useDispatch();
+const FeedOrderDetails = ({ orders }: FeedOrderDetailsProps) => {
+    const dispatch = useDispatch();
   useEffect(() => {
     dispatch(connect(ALL_ORDER_FEED_URL));
   }, [])
@@ -21,24 +35,24 @@ const FeedOrderDetails = ({orders}: any) => {
   const orderFromServerByNumber = useSelector(
     (store) => store.getOrderFromServerByNumberReducer.orders
   );
-  const orderNumber: any = useParams().orderNumber;
-  const [selectedOrder, setSelectedOrder] = useState<SelectedOrder>(null);
+  const orderNumber: undefined | number | string = useParams().orderNumber;
+  const [selectedOrder, setSelectedOrder] = useState<Orderr>();
   console.log(selectedOrder)
 
   useEffect(() => {
+    if(orderNumber){
     setSelectedOrder(
-      orders.find((order: Order) => {
+      orders.find((order: Orderr) => {
         return order.number === +orderNumber;
       })
     );
-    const flag = orders.find((order: Order) => {
+    const flag = orders.find((order: Orderr) => {
       return order.number === +orderNumber;
     });
     if (!flag) {
-      dispatch(getOrderFromServerByNumber(orderNumber));
+      dispatch(getOrderFromServerByNumber(+orderNumber));
       setSelectedOrder(orderFromServerByNumber);
-    }
-    
+    }}
   }, [selectedOrder, orders, orderNumber]);
 
   return selectedOrder ? (
@@ -69,7 +83,7 @@ const FeedOrderDetails = ({orders}: any) => {
   );
 }
 
-export function OrderContent({ orderIngredientsIds, date } : TOrderContent) {
+export function OrderContent({ orderIngredientsIds, date }: TOrderContent) {
   // чтобы отобразить каждый ингредиент один раз получим массив уникальных ID
   const uniqeOrderIngredientsIds = orderIngredientsIds.filter(function (
     orderIngredientId,
@@ -81,7 +95,7 @@ export function OrderContent({ orderIngredientsIds, date } : TOrderContent) {
   const ingredients = useSelector(
     (store) => store.getIngredientsReducer.ingredients
   );
-  let orderIngredients:any = []; //так как через пропсы приходят только id ингредиентов, нам для построения компонентов нужно получить данные ингредиента целиком
+  let orderIngredients: Ingredient[] = []; //так как через пропсы приходят только id ингредиентов, нам для построения компонентов нужно получить данные ингредиента целиком
   uniqeOrderIngredientsIds.forEach((uniqeOrderIngredientId) => {
     ingredients.forEach((ingredient: Ingredient) => {
       if (uniqeOrderIngredientId === ingredient._id) {
@@ -119,8 +133,8 @@ export function OrderContent({ orderIngredientsIds, date } : TOrderContent) {
               </div>
               <span className={`${styles.name} text text_type_main-default mr-4`}>{orderIngredient.name}</span>
               <div className={`${styles.orderIngredientPrice} text text_type_digits-default mr-6`}>
-              <span>{count[orderIngredient._id]} &nbsp;X&nbsp;</span>
-              <span>&nbsp;{orderIngredient.price}&nbsp;&nbsp;<CurrencyIcon type="primary" /></span>
+                <span>{count[orderIngredient._id]} &nbsp;X&nbsp;</span>
+                <span>&nbsp;{orderIngredient.price}&nbsp;&nbsp;<CurrencyIcon type="primary" /></span>
               </div>
             </li>
           );

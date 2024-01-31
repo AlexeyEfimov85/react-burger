@@ -11,7 +11,7 @@ type UserValue = {
 }
 
 export function signInAction(userValue: UserValue) {
-  return function (dispatch: (arg0: { type: string; success?: string; accessToken?: string; refreshToken?: string; user?: object; isAuthChecked?: boolean; }) => void) {
+  return function (dispatch: (arg0: { type: string; success?: string; accessToken?: string; refreshToken?: string; user?: {email: string; name: string}; isAuthChecked?: boolean; }) => void) {
     dispatch({
       type: SIGN_IN,
     });

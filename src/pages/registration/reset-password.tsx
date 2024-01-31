@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect, FormEvent } from "react";
 import { useDispatch } from "../../types/hooks";
 import { useNavigate, Link } from "react-router-dom";
 import {
@@ -20,7 +20,7 @@ export default function ResetPassword() {
     alert("Icon Click Callback");
   };
 
-  const recoverPassword = (e: any) => {
+  const recoverPassword = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     dispatch(setNewPasswordAction(value));
   };
