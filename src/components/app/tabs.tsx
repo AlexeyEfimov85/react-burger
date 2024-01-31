@@ -1,21 +1,20 @@
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
 import { FC } from 'react';
 import styles from './tabs.module.css';
-import { useSelector as selectorHook, TypedUseSelectorHook } from "react-redux";
-import { RootState } from "../..";
+
+import { useSelector } from "../../types/hooks";
 
 const Tabs: FC = () => {
-  const useSelector: TypedUseSelectorHook<RootState> = selectorHook;
   const current = useSelector(store => store.setCurrentTabReducer.currentTab)
   return (
     <div className={styles.tabWrapper}>
-      <Tab value="one" active={current === "one"}>
+      <Tab value="one" active={current === "one"} onClick={() => {}}>
         Булки
       </Tab>
-      <Tab value="two" active={current === "two"} >
+      <Tab value="two" active={current === "two"} onClick={() => {}}>
         Соусы
       </Tab>
-      <Tab value="three" active={current === "three"} >
+      <Tab value="three" active={current === "three"} onClick={() => {}}>
         Начинки
       </Tab>
     </div>
