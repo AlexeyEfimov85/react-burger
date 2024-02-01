@@ -3,6 +3,7 @@ import { Link, useLocation } from "react-router-dom";
 import { useSelector } from "../../types/hooks";
 import FeedCard from "./feed-card";
 import FeedOrders from "./feed-orders";
+import { Orderr } from "../../types/types";
 
 
 export default function Feed() {
@@ -15,7 +16,7 @@ export default function Feed() {
       </h1>
       <div className={styles.componentsWrapper}>
         <div className={`${styles.list} custom-scroll pr-2`}>
-          {orders.map((order: any, index: number) => (
+          {orders.map((order: Orderr, index: number) => (
             <Link key = {index}
               to={`/feed/${order.number}`}
               className={styles.link}

@@ -14,9 +14,9 @@ export default function ResetPassword() {
     passwordValue: "",
     codeValue: "",
   });
-  const inputRef: any = useRef(null);
+  const inputRef = useRef<HTMLInputElement>(null);
   const onIconClick = () => {
-    setTimeout(() => inputRef.current.focus(), 0);
+    setTimeout(() => { if (inputRef && inputRef.current) { inputRef.current.focus() } }, 0);
     alert("Icon Click Callback");
   };
 

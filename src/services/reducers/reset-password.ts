@@ -3,7 +3,7 @@ import {SET_NEW_PASSWORD, SET_NEW_PASSWORD_SUCCESS, SET_NEW_PASSWORD_FAILED} fro
 type InitialState = {
     setNewPasswordRequest: boolean;
     setNewPasswordRequestFailed: boolean;
-    success: any;
+    success: boolean;
     message: string;
 }
 
@@ -14,7 +14,7 @@ const initialState: InitialState = {
     message: '',
 }
 
-export const setNewPasswordReducer = (state = initialState, action: { type: string; success: any; message: string; }) => {
+export const setNewPasswordReducer = (state = initialState, action: { type: string; success: boolean; message: string; }) => {
     switch(action.type) {
         case SET_NEW_PASSWORD: {
             return {

@@ -21,9 +21,9 @@ export default function SignIn() {
     dispatch(signInAction(userValue));
   };
 
-  const inputRef: any = useRef<HTMLInputElement>(null);
+  const inputRef = useRef<HTMLInputElement>(null);
   const onIconClick = () => {
-    setTimeout(() => inputRef.current.focus(), 0);
+    setTimeout(() => { if (inputRef && inputRef.current) { inputRef.current.focus() } }, 0);
   };
   return (
     <div className={styles.container}>

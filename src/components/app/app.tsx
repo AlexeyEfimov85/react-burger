@@ -23,7 +23,7 @@ import {
   connectUserOrders,
   disconnectUserOrders,
 } from "../../services/orders-user/actions";
-import { useEffect, FC, MouseEvent } from "react";
+import { useEffect, FC } from "react";
 import { useSelector, useDispatch } from "../../types/hooks";
 
 

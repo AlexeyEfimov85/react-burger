@@ -1,10 +1,11 @@
 import { refreshUserValueAction } from "../actions/refresh-user";
+import { ParsedData } from "../../types/types";
 
 export const socketMiddleware = (wsActions: { wsConnect: string; onOpen: string; onClose: string; onError: string; onMessage: string; wsConnecting: string; wsDisconnect: string; }) => {
   return (store: { dispatch: any }) => {
     let socket: WebSocket | null = null;
 
-    return (next: (arg0: any) => void) => (action: { payload?: any; type?: any; }) => {
+    return (next: (arg0: any) => void) => (action: { payload: string | URL; type?: string; }) => {
       const { dispatch } = store;
       const { type } = action;
       const {
@@ -27,27 +28,22 @@ export const socketMiddleware = (wsActions: { wsConnect: string; onOpen: string;
           dispatch({ type: onOpen });
         };
 
-        socket.onerror = () => {
-          dispatch({ type: onError, payload: "Error" });
+      socket.onerror = () => {
+        const error: string = "Error";
+          dispatch({ type: onError, payload: {error: error} });
         };
 
-        socket.onmessage = (event: { data: any; }) => {
+        socket.onmessage = (event: { data: string; }) => {
           const { data } = event;
-          const parsedData = JSON.parse(data);
-
+          const parsedData: ParsedData = JSON.parse(data);
           dispatch({ type: onMessage, payload: parsedData });
           if (parsedData.message === "jwt expired") {
-            refreshUserValueAction();
-          }
+                      refreshUserValueAction();
+                    }
         };
 
         socket.onclose = () => {
           dispatch({ type: onClose });
-/*           const functionRef = () => {
-            socket = new WebSocket(action.payload);
-            dispatch({ type: wsConnecting });
-          };
-          setTimeout(functionRef(), 100000); */
         };
 
         if (type === wsDisconnect) {

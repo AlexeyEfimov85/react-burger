@@ -10,7 +10,7 @@ type ModalProps = {
 }
 
 const Modal = (props: ModalProps) => {
-    const modalRoot: any = document.getElementById("modals");
+    const modalRoot: HTMLElement | null  = document.getElementById("modals");
     React.useEffect(() => {
         const escFunction = (e: { key: string; }) : void => {
             if (e.key === "Escape") {
@@ -23,8 +23,8 @@ const Modal = (props: ModalProps) => {
         };
     }, [])
     return (
-        <>
-           {createPortal(
+        <>  
+           {modalRoot !== null && createPortal (
                 <>
                     <div className={styles.modal}>
                         <span onClick={props.onClose} className={`${styles.modalCloseIcon}`}><CloseIcon type="primary" /></span>

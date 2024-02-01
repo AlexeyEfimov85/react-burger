@@ -9,22 +9,22 @@ import { TOrderContent, Ingredient } from "../../types/types";
 const ALL_ORDER_FEED_URL = "wss://norma.nomoreparties.space/orders/all";
 
 type Orderr = {
-  
-    createdAt: string;
-    ingredients: string[];
-    name: string;
-    number: number | string;
-    status: string;
-    updatedAt: string;
-    _id: string;
-  
+
+  createdAt: string;
+  ingredients: string[];
+  name: string;
+  number: number | string;
+  status: string;
+  updatedAt: string;
+  _id: string;
+
 }
 type FeedOrderDetailsProps = {
   orders: Orderr[];
 }
 
 const FeedOrderDetails = ({ orders }: FeedOrderDetailsProps) => {
-    const dispatch = useDispatch();
+  const dispatch = useDispatch();
   useEffect(() => {
     dispatch(connect(ALL_ORDER_FEED_URL));
   }, [])
@@ -33,26 +33,27 @@ const FeedOrderDetails = ({ orders }: FeedOrderDetailsProps) => {
   // если такого заказа нет то отсылаем action c номером заказа в URL на соответсвующий эндпоинт
   //const orders = useSelector((store) => store.allOrdersReducer.orders);
   const orderFromServerByNumber = useSelector(
-    (store) => store.getOrderFromServerByNumberReducer.orders
+    (store) => store.getOrderFromServerByNumberReducer.order
   );
   const orderNumber: undefined | number | string = useParams().orderNumber;
   const [selectedOrder, setSelectedOrder] = useState<Orderr>();
-  console.log(selectedOrder)
 
   useEffect(() => {
-    if(orderNumber){
-    setSelectedOrder(
-      orders.find((order: Orderr) => {
+    if (orderNumber) {
+      setSelectedOrder(
+        orders.find((order: Orderr) => {
+          return order.number === +orderNumber;
+        })
+      );
+      const flag = orders.find((order: Orderr) => {
         return order.number === +orderNumber;
-      })
-    );
-    const flag = orders.find((order: Orderr) => {
-      return order.number === +orderNumber;
-    });
-    if (!flag) {
-      dispatch(getOrderFromServerByNumber(+orderNumber));
-      setSelectedOrder(orderFromServerByNumber);
-    }}
+      });
+      if (!flag) {
+        dispatch(getOrderFromServerByNumber(+orderNumber));
+        if(orderFromServerByNumber){
+        setSelectedOrder(orderFromServerByNumber[0]);}
+      }
+    }
   }, [selectedOrder, orders, orderNumber]);
 
   return selectedOrder ? (
@@ -83,6 +84,10 @@ const FeedOrderDetails = ({ orders }: FeedOrderDetailsProps) => {
   );
 }
 
+type TCount = {
+  [key: string]: number;
+}
+
 export function OrderContent({ orderIngredientsIds, date }: TOrderContent) {
   // чтобы отобразить каждый ингредиент один раз получим массив уникальных ID
   const uniqeOrderIngredientsIds = orderIngredientsIds.filter(function (
@@ -104,7 +109,7 @@ export function OrderContent({ orderIngredientsIds, date }: TOrderContent) {
     });
   });
   let arr = orderIngredientsIds;
-  let count: any = {};
+  let count: TCount = {};
 
   for (let elem of arr) {
     if (count[elem] === undefined) {

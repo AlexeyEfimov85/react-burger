@@ -122,21 +122,19 @@ export function ProfileForm({ user }: TProfileFormm) {
     setUserValue({ ...userValue, name: user.name, email: user.email })
   };
   // делаем иконку инпутов кликабильной
-  const inputNameRef: any = useRef<HTMLInputElement>(null);
+  const inputNameRef = useRef<HTMLInputElement>(null);
   const onIconNameClick = () => {
-    setTimeout(() => inputNameRef.current.focus(), 0);
+    setTimeout(() => { if (inputNameRef && inputNameRef.current) { inputNameRef.current.focus() } }, 0);
   };
-  const inputEmailRef: any = useRef<HTMLInputElement>(null); // выяснить почему  у <EmailInput /> нет свойства ref
+  const inputEmailRef = useRef<HTMLInputElement>(null); // выяснить почему  у <EmailInput /> нет свойства ref
   const onIconEmailClick = () => {
-    setTimeout(() => inputEmailRef.current.focus(), 0);
+    setTimeout(() => { if (inputEmailRef && inputEmailRef.current) { inputEmailRef.current.focus() } }, 0);
   };
-  const inputPasswordRef: any = useRef<HTMLInputElement>(null);
+  const inputPasswordRef = useRef<HTMLInputElement>(null);
   const onIconPasswordClick = () => {
-    setTimeout(() => inputPasswordRef.current.focus(), 0);
+    setTimeout(() => { if (inputPasswordRef && inputPasswordRef.current) { inputPasswordRef.current.focus() } }, 0);
   };
   // изменение данных пользователя
-
-
 
   return (
     <div>

@@ -3,7 +3,7 @@ import { RECOVER_PASSWORD, RECOVER_PASSWORD_SUCCESS, RECOVER_PASSWORD_FAILED} fr
 type InitialState = {
     recoverPasswordRequest: boolean;
     recoverPasswordRequestFailed: boolean;
-    success: any;
+    success: boolean;
     message: string;
 }
 
@@ -14,7 +14,7 @@ const initialState: InitialState = {
     message: '',
 }
 
-export const recoverPasswordReducer = (state = initialState, action: { type: string; success: any; message: string; }) => {
+export const recoverPasswordReducer = (state = initialState, action: { type: string; success: boolean; message: string; }) => {
     switch(action.type) {
         case RECOVER_PASSWORD: {
             return {

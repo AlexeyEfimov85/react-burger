@@ -1,3 +1,4 @@
+import { ParsedData } from "../../types/types";
 import {
     USER_ORDERS_WS_CLOSE,
     USER_ORDERS_WS_CONNECTING,
@@ -14,7 +15,7 @@ import {
       totalToday: 0,
   }
   
-  export const userOrdersReducer = (state = initialState, action: { type: string; payload: any; }) => {
+  export const userOrdersReducer = (state = initialState, action: { type: string; payload: ParsedData; }) => {
       switch (action.type)
       {
           case USER_ORDERS_WS_CONNECTING:
@@ -36,7 +37,7 @@ import {
           case USER_ORDERS_WS_ERROR:
               return {
                   ...state,
-                  error: action.payload
+                  error: action.payload.error
               };
           case USER_ORDERS_WS_DATA:
               return {

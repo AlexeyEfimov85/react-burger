@@ -3,7 +3,7 @@ import { GET_ORDERDETAILS, GET_ORDERDETAILS_SUCCESS, GET_ORDERDETAILS_FAILED } f
 type InitialState = {
     orderDetailsRequest: boolean;
     orderDetailsFailed: boolean;
-    orderDetails: any; 
+    orderDetails: number | null; 
 }
 
 const initialState: InitialState = {
@@ -12,7 +12,7 @@ const initialState: InitialState = {
     orderDetails: null,
 }
 
-export const getOrderDetailsReducer = (state = initialState, action: { type: string; orderDetails: any; }) => {
+export const getOrderDetailsReducer = (state = initialState, action: { type: string; orderDetails: number; }) => {
     switch(action.type) {
         case GET_ORDERDETAILS: {
             return {

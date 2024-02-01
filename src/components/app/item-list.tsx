@@ -27,12 +27,16 @@ type ItemProps = {
   listItem: Ingredient
 }
 
+type acc = {
+  [key:string] : number;
+}
+
 const Item = ({ listItem }: ItemProps) => {
   const location = useLocation();
   const ingredientId = listItem['_id'];
   const count = useSelector(store => store.setIngredientCounterReducer.cart).map((item: ListItem) => {
     return item._id
-  }).reduce(function (acc: any, el: any) {
+  }).reduce(function (acc: acc, el: string) {
     acc[el] = (acc[el] || 0) + 1;
     return acc;
   }, {});

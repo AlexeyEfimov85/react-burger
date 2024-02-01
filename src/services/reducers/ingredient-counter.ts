@@ -1,7 +1,23 @@
 import { INCREASE_INGREDIENT_COUNTER, CHANGE_ELEMENTS_ORDER, ADD_INGREDIENT } from '../actions/ingredient-counter';
 
+type Ingredient = {
+    calories: number;
+    carbohydrates: number;
+    fat: number;
+    image: string;
+    image_large: string;
+    image_mobile: string;
+    key: string;
+    name: string;
+    price: number;
+    proteins: number;
+    type: string;
+    __v: number | string;
+    _id: string;
+} 
+
 type InitialState = {
-    cart: any;
+    cart: Ingredient[];
 }
 
 const initialState: InitialState = {
@@ -10,7 +26,7 @@ const initialState: InitialState = {
 }
 
 
-export const setIngredientCounterReducer = (state = initialState, action: { type: string; ingredient: any[]; }) => {
+export const setIngredientCounterReducer = (state = initialState, action: { type: string; ingredient: any; }) => {
     switch (action.type) {
         case ADD_INGREDIENT: {
             return {

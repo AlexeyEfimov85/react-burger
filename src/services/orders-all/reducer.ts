@@ -1,30 +1,31 @@
 import {
-  ALL_ORDERS_WS_CLOSE,
-  ALL_ORDERS_WS_CONNECTING,
-  ALL_ORDERS_WS_DATA,
-  ALL_ORDERS_WS_ERROR,
-  ALL_ORDERS_WS_OPEN,
+    ALL_ORDERS_WS_CLOSE,
+    ALL_ORDERS_WS_CONNECTING,
+    ALL_ORDERS_WS_DATA,
+    ALL_ORDERS_WS_ERROR,
+    ALL_ORDERS_WS_OPEN,
 } from "./actions";
 
+import { ParsedData } from "../../types/types";
+
 type InitialState = {
-    status : string;
+    status: string;
     orders: [],
-    error : string;
+    error: string;
     total: number;
     totalToday: number;
 }
 
 const initialState: InitialState = {
-    status : 'OFFLINE',
+    status: 'OFFLINE',
     orders: [],
-    error : '',
+    error: '',
     total: 0,
     totalToday: 0,
 }
-
-export const allOrdersReducer = (state = initialState, action: { type: string; payload: any } ) => {
-    switch (action.type)
-    {
+export const allOrdersReducer = (state = initialState, action:
+    { type: string; payload: ParsedData }) => {
+    switch (action.type) {
         case ALL_ORDERS_WS_CONNECTING:
             return {
                 ...state,
@@ -44,7 +45,7 @@ export const allOrdersReducer = (state = initialState, action: { type: string; p
         case ALL_ORDERS_WS_ERROR:
             return {
                 ...state,
-                error: action.payload
+                error: action.payload.error
             };
         case ALL_ORDERS_WS_DATA:
             return {

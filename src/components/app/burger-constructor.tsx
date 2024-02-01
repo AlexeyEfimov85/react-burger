@@ -9,7 +9,7 @@ import { OrderDetails } from "./order-details";
 import Modal from "./modal";
 import TotalOrder from "./total-order";
 import { getOrderDetailsAction } from "../../services/actions/order-details";
-import { useDrop, useDrag } from "react-dnd";
+import { useDrop, useDrag, XYCoord } from "react-dnd";
 import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
 import { SET_OPEN, SET_CLOSE } from "../../services/actions/modal";
@@ -191,8 +191,9 @@ const CartItem:FC<PropsWithChildren<CartItems>> = ({ listItem, allIngredientsInC
       // Get vertical middle
       const hoverMiddleY =
         (hoverBoundingRect.bottom - hoverBoundingRect.top) / 2;
-      const clientOffset: any = monitor.getClientOffset();
+      const clientOffset: XYCoord | null = monitor.getClientOffset();
       // Get pixels to the top
+      if(clientOffset){
       const hoverClientY = clientOffset.y - hoverBoundingRect.top;
       if (dragIndex < hoverIndex && hoverClientY < hoverMiddleY) {
         return;
@@ -202,7 +203,7 @@ const CartItem:FC<PropsWithChildren<CartItems>> = ({ listItem, allIngredientsInC
         return;
       }
       moveCard(dragIndex, hoverIndex);
-      item.index = hoverIndex;
+      item.index = hoverIndex;}
     },
   });
   const dispatch = useDispatch();

@@ -1,3 +1,4 @@
+import { TGetOrderByNumber } from "../../types/types";
 import {
   GET_ORDER_FROM_SERVER_BY_NUMBER,
   GET_ORDER_FROM_SERVER_BY_NUMBER_SUCCESS,
@@ -7,18 +8,18 @@ import {
 type InitialState = {
     request : boolean;
     requestFailed : boolean;
-    success : string | undefined;
-    orders : null | [];
+    success : boolean;
+    order : null | TGetOrderByNumber[];
 }
 
 const initialState: InitialState = {
     request : false,
     requestFailed : false,
-    success : '',
-    orders : null,
+    success : false,
+    order : null,
 }
 
-export const getOrderFromServerByNumberReducer = (state = initialState, action: { type: string; success: any; orders: any[]; }) => {
+export const getOrderFromServerByNumberReducer = (state = initialState, action: { type: string; success: boolean; orders: TGetOrderByNumber[]; }) => {
     switch(action.type) {
         case GET_ORDER_FROM_SERVER_BY_NUMBER: {
             return {
@@ -33,7 +34,7 @@ export const getOrderFromServerByNumberReducer = (state = initialState, action: 
                 request: true,
                 requestFailed: false,
                 success: action.success,
-                orders: action.orders[0],
+                order: action.orders,
             }
         }
         case GET_ORDER_FROM_SERVER_BY_NUMBER_FAILED: {

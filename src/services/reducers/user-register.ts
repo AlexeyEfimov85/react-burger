@@ -24,7 +24,12 @@ const initialState: InitialState = {
     refreshToken: ''
 }
 
-export const registerNewUserReducer = (state = initialState, action: { type: string; success: string; user: any; accessToken: string; refreshToken: string; }) => {
+export const registerNewUserReducer = (state = initialState, action: {
+    type: string; success: string; user: {
+        email: string;
+        name: string;
+    }; accessToken: string; refreshToken: string;
+}) => {
     switch (action.type) {
         case REGISTER_NEW_USER: {
             return {
